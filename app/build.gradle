@@ -3,14 +3,16 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+apply from: '../config/detekt/detekt.gradle'
+
 android {
     namespace 'com.mpfcoding.ichef_app'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.mpfcoding.ichef_app"
         minSdk 23
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 

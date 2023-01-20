@@ -27,6 +27,7 @@ private val LightColorPalette = lightColors(
     */
 )
 
+@Suppress("FunctionNaming")
 @Composable
 fun IChef_appTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) {
