@@ -1,4 +1,4 @@
-package com.mpfcoding.ichef_app.ui.theme
+package com.mpfcoding.ichef_app.presentation.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

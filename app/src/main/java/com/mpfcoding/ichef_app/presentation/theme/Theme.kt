@@ -1,4 +1,4 @@
-package com.mpfcoding.ichef_app.ui.theme
+package com.mpfcoding.ichef_app.presentation.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
@@ -27,6 +27,7 @@ private val LightColorPalette = lightColors(
     */
 )
 
+@Suppress("FunctionNaming")
 @Composable
 fun IChef_appTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) {
