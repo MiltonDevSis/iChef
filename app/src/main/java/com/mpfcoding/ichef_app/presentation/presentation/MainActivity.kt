@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.mpfcoding.ichef_app.presentation.presentation.intro.IntroActivity
-import com.mpfcoding.ichef_app.presentation.presentation.intro.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

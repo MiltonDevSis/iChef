@@ -1,4 +1,4 @@
-package com.mpfcoding.ichef_app.presentation.presentation.intro
+package com.mpfcoding.ichef_app.presentation.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

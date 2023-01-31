@@ -66,7 +66,7 @@ class IntroActivity : ComponentActivity() {
                         title = getString(R.string.button_intro_get_order_title),
                         subtitle = getString(R.string.button_intro_get_order_subtitle),
                         imageId = painterResource(id = R.drawable.icon_scooter_64),
-                        backgroundColor = Color.Yellow
+                        backgroundColor = Color.Red
                     ) {
                         // tela de estabelecimentos
                     }
