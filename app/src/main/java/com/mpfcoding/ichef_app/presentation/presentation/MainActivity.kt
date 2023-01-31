@@ -23,6 +23,7 @@ class MainActivity : ComponentActivity() {
         }
         setContent {
             startActivity(Intent(this@MainActivity, IntroActivity::class.java))
+            finish()
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.mpfcoding.ichef_app.presentation.presentation.components
+package com.mpfcoding.ichef_app.presentation.presentation.intro.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

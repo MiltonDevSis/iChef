@@ -3,11 +3,12 @@
     <string name="title_activity_intro">IntroActivity</string>
 
 
-    <string name="button_intro_registration_title">Entre para essa festa</string>
+    <string name="button_intro_registration_title">ENTRE PARA ESSA FESTA</string>
     <string name="button_intro_registration_subtitle">Aqui você terá descontos, brindes, promoções e muito mais.</string>
-    <string name="button_intro_get_order_title">Pedido sem cadastro</string>
+    <string name="button_intro_get_order_title">PEDIDO SEM CADASTRO</string>
     <string name="button_intro_get_order_subtitle">Aqui você pede seu lanche e lhe entregaremos, mas você não terá algumas vantagens.</string>
     <string name="text_intro_i_have_registration">Já tenho cadastro, ENTRAR.</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
 
 
 </resources>
