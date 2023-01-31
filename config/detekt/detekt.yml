@@ -328,7 +328,7 @@ naming:
     active: false
     minimumFunctionNameLength: 3
   FunctionNaming:
-    active: true
+    active: false
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
     functionPattern: '[a-z][a-zA-Z0-9]*'
     excludeClassPattern: '$^'
@@ -560,7 +560,7 @@ style:
     active: true
     maxJumpCount: 1
   MagicNumber:
-    active: true
+    active: false
     excludes: [
       '**/test/**',
       '**/androidTest/**',
@@ -568,8 +568,7 @@ style:
       '**/jvmTest/**',
       '**/jsTest/**',
       '**/iosTest/**',
-      '**/*.kts',
-      '**/main/java/com/mpfcoding/ichef_app/presentation/theme/Color.kt**'
+      '**/*.kts'
     ]
     ignoreNumbers:
       - '-1'
