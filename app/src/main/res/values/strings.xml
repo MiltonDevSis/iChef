@@ -10,5 +10,20 @@
     <string name="text_intro_i_have_registration">Já tenho cadastro, ENTRAR.</string>
     <string name="title_activity_registration">RegistrationActivity</string>
 
+    <string name="field_complete_name">Nome completo</string>
+    <string name="field_complete_name_placeholder">Escreva aqui seu nome completo</string>
+    <string name="field_complete_email">Email</string>
+    <string name="field_complete_email_placeholder">Escreva aqui seu Email</string>
+    <string name="field_complete_phone">Telefone</string>
+    <string name="field_complete_phone_placeholder">Escreva aqui seu Telefone</string>
+    <string name="field_complete_password">Senha</string>
+    <string name="field_complete_password_placeholder">Escreva aqui sua senha</string>
+    <string name="field_complete_confirm_password">"Confirmação de senha"</string>
+    <string name="field_complete_confirm_password_placeholder">"Repita sua senha aqui"</string>
 
+    <string name="check_receive_offers">Quero receber comunicações com descontos e promoções</string>
+    <string name="text_first_part_terms_of_use">Clicando em "CADASTRAR-SE" você declara estar de acordo com nossos </string>
+    <string name="text_second_clikable_terms_of_use">Termos de uso</string>
+    <string name="url_google">https://google.com</string>
+    <string name="button_registration">Cadastrar-se</string>
 </resources>
