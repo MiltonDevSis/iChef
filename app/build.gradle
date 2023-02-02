@@ -78,6 +78,9 @@ dependencies {
     //navigation
     implementation "androidx.navigation:navigation-compose:2.5.3"
 
+    // Toasty
+    implementation 'com.github.GrenderG:Toasty:1.5.2'
+
     implementation "androidx.core:core-splashscreen:1.0.0"
 
     def hypirion_version = '0.9.34'
