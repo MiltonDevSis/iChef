@@ -3,8 +3,8 @@ package com.mpfcoding.ichef_app.presentation.presentation.intro
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,10 +26,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.mpfcoding.ichef_app.R
-import com.mpfcoding.ichef_app.presentation.presentation.MainActivity
-import com.mpfcoding.ichef_app.presentation.presentation.components.ButtonIntroScreen
+import com.mpfcoding.ichef_app.presentation.presentation.intro.components.ButtonIntroScreen
+import com.mpfcoding.ichef_app.presentation.presentation.registration.RegistrationActivity
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 
 class IntroActivity : ComponentActivity() {
@@ -59,7 +57,7 @@ class IntroActivity : ComponentActivity() {
                         imageId = painterResource(id = R.drawable.ic_fastfood_24),
                         backgroundColor = Color.Green
                     ) {
-                        // tela de cadastro
+                        startActivity(Intent(this@IntroActivity, RegistrationActivity::class.java))
                     }
                     Spacer(modifier = Modifier.size(20.dp))
                     ButtonIntroScreen(

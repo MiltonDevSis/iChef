@@ -1,10 +1,10 @@
 apply plugin: "io.gitlab.arturbosch.detekt"
 
-project.afterEvaluate {
-    tasks.named("preBuild") {
-        dependsOn("detekt")
-    }
-}
+//project.afterEvaluate {
+//    tasks.named("preBuild") {
+//        dependsOn("detekt")
+//    }
+//}
 
 detekt {
     toolVersion = "$detekt_version"
