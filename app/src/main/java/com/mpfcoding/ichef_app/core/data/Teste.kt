@@ -1,4 +1,4 @@
-package com.mpfcoding.core.data
+package com.mpfcoding.ichef_app.core.data
 
 data class Teste(
     val teste: String? = null

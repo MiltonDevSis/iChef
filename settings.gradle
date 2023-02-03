@@ -15,5 +15,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "iChef_app"
 include ':app'
-include ':core'
-include ':testing'

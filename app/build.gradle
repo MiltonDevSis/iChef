@@ -22,6 +22,7 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
     }
 
     buildTypes {
@@ -52,11 +53,9 @@ android {
 
 dependencies {
 
-    implementation project(':core')
     implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation project(":testing")
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
@@ -75,13 +74,26 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-android-compiler:2.44"
 
-    //navigation
-    implementation "androidx.navigation:navigation-compose:2.5.3"
-
     // Toasty
     implementation 'com.github.GrenderG:Toasty:1.5.2'
 
     implementation "androidx.core:core-splashscreen:1.0.0"
+
+    //navigation
+    implementation "androidx.navigation:navigation-compose:2.5.3"
+
+    // okhttp
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+
+    // Retrofit
+    def retrofit_version = '2.9.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // gson
+    implementation 'com.google.code.gson:gson:2.8.9'
 
     def hypirion_version = '0.9.34'
     debugImplementation "com.willowtreeapps.hyperion:hyperion-core:$hypirion_version"

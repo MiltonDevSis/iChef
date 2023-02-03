@@ -1,11 +1,21 @@
 package com.mpfcoding.ichef_app.presentation.presentation.registration
 
 import androidx.lifecycle.ViewModel
-import com.mpfcoding.core.utils.ValidationsUtils
-import com.mpfcoding.core.utils.ValidationsUtils.Companion.isPhoneValid
-import com.mpfcoding.core.utils.ValidationsUtils.Companion.isValidFullName
+import com.mpfcoding.ichef_app.core.data.repository.UserRepository
+import com.mpfcoding.ichef_app.core.domain.UserRegistration
+import com.mpfcoding.ichef_app.core.utils.ValidationsUtils
+import com.mpfcoding.ichef_app.core.utils.ValidationsUtils.Companion.isValidFullName
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class RegistrationViewModel : ViewModel() {
+@HiltViewModel
+class RegistrationViewModel @Inject constructor(
+   private val userRepository: UserRepository
+) : ViewModel() {
+
+    suspend fun montaRequest(userRegistration: UserRegistration) {
+        userRepository.userRegistration(userRegistration)
+    }
 
     fun validateFields(
         name: String,

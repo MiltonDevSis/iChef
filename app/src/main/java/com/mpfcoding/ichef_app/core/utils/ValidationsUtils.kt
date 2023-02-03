@@ -1,4 +1,4 @@
-package com.mpfcoding.core.utils
+package com.mpfcoding.ichef_app.core.utils
 
 class ValidationsUtils {
     companion object{

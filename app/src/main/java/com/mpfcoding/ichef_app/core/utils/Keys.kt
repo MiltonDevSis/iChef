@@ -1,0 +1,6 @@
+package com.mpfcoding.ichef_app.core.utils
+
+object Keys {
+
+    const val apikey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhdWd1bXh0bGVib3h5bHhpanZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzU0MjkzODEsImV4cCI6MTk5MTAwNTM4MX0.2-2mot3vGzwrYEt6D0gLcqjSxlyUtkXBr1wYMVZboe8"
+}
