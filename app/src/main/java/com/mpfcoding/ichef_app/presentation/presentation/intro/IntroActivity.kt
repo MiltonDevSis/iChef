@@ -3,7 +3,6 @@ package com.mpfcoding.ichef_app.presentation.presentation.intro
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -30,7 +29,11 @@ import com.mpfcoding.ichef_app.R
 import com.mpfcoding.ichef_app.presentation.presentation.intro.components.ButtonIntroScreen
 import com.mpfcoding.ichef_app.presentation.presentation.registration.RegistrationActivity
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class IntroActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +48,8 @@ class IntroActivity : ComponentActivity() {
                     Image(
                         painterResource(id = R.drawable.logo),
                         contentDescription = "",
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .width(220.dp)
                             .height(220.dp)
                             .align(Alignment.CenterHorizontally)

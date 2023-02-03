@@ -42,15 +42,24 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mpfcoding.ichef_app.core.domain.UserRegistration
 import com.mpfcoding.ichef_app.R
 import com.mpfcoding.ichef_app.presentation.presentation.registration.components.CheckBoxWithText
 import com.mpfcoding.ichef_app.presentation.presentation.registration.components.TextTermsClickable
+import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class RegistrationActivity : ComponentActivity() {
 
     private val viewModel: RegistrationViewModel by viewModels()
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -276,11 +285,15 @@ class RegistrationActivity : ComponentActivity() {
                                 )
 
                                 if (isValidFields.isValid) {
-                                    Toasty.success(
-                                        this@RegistrationActivity,
-                                        "Endereço",
-                                        Toast.LENGTH_LONG
-                                    ).show()
+                                    val user = UserRegistration(
+                                        name = userName.text,
+                                        email = userEmail.text,
+                                        phone = userPhone.text,
+                                        pass = userPassword.text
+                                    )
+                                    GlobalScope.launch {
+                                        viewModel.montaRequest(user)
+                                    }
                                 } else {
                                     Toasty.warning(
                                         this@RegistrationActivity,
