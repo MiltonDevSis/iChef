@@ -42,10 +42,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mpfcoding.ichef_app.core.domain.UserRegistration
 import com.mpfcoding.ichef_app.R
-import com.mpfcoding.ichef_app.presentation.presentation.registration.components.CheckBoxWithText
+import com.mpfcoding.ichef_app.core.domain.UserRegistration
 import com.mpfcoding.ichef_app.presentation.presentation.registration.components.TextTermsClickable
+import com.mpfcoding.ichef_app.presentation.presentation.registration.components.ValidateStrenghPassComponent
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -71,7 +71,7 @@ class RegistrationActivity : ComponentActivity() {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp)
+                        .padding(14.dp)
                 ) {
 
                     var userName by remember { mutableStateOf(TextFieldValue("")) }
@@ -81,7 +81,6 @@ class RegistrationActivity : ComponentActivity() {
                     var userPasswordVisible by rememberSaveable { mutableStateOf(false) }
                     var userConfirmPass by remember { mutableStateOf(TextFieldValue("")) }
                     var userConfirmPassVisible by rememberSaveable { mutableStateOf(false) }
-                    var checkBoxState by remember { mutableStateOf(false) }
 
                     OutlinedTextField(
                         value = userName,
@@ -89,12 +88,8 @@ class RegistrationActivity : ComponentActivity() {
                             userName = it
                         },
                         label = { Text(text = getString(R.string.field_complete_name)) },
-                        placeholder = {
-                            Text(text = getString(R.string.field_complete_name_placeholder))
-                        },
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(2.dp),
+                            .fillMaxWidth(),
                         textStyle = TextStyle(
                             fontSize = 14.sp
                         ),
@@ -115,9 +110,6 @@ class RegistrationActivity : ComponentActivity() {
                             .padding(2.dp),
                         value = userEmail,
                         label = { Text(getString(R.string.field_complete_email)) },
-                        placeholder = {
-                            Text(text = getString(R.string.field_complete_email_placeholder))
-                        },
                         onValueChange = {
                             userEmail = it
                         },
@@ -138,9 +130,6 @@ class RegistrationActivity : ComponentActivity() {
                             .padding(2.dp),
                         value = userPhone,
                         label = { Text(getString(R.string.field_complete_phone)) },
-                        placeholder = {
-                            Text(text = getString(R.string.field_complete_phone_placeholder))
-                        },
                         onValueChange = {
                             if (it.text.length <= 11)
                                 userPhone = it
@@ -164,9 +153,6 @@ class RegistrationActivity : ComponentActivity() {
                         singleLine = true,
                         value = userPassword,
                         label = { Text(getString(R.string.field_complete_password)) },
-                        placeholder = {
-                            Text(text = getString(R.string.field_complete_password_placeholder))
-                        },
                         onValueChange = {
                             userPassword = it
                         },
@@ -211,13 +197,6 @@ class RegistrationActivity : ComponentActivity() {
                         label = {
                             Text(text = getString(R.string.field_complete_confirm_password))
                         },
-                        placeholder = {
-                            Text(
-                                text = getString(
-                                    R.string.field_complete_confirm_password_placeholder
-                                )
-                            )
-                        },
                         onValueChange = { userConfirmPass = it },
                         leadingIcon = {
                             Icon(
@@ -254,12 +233,17 @@ class RegistrationActivity : ComponentActivity() {
 
                     Spacer(modifier = Modifier.size(5.dp))
 
-                    CheckBoxWithText(
-                        getString(R.string.check_receive_offers),
-                        checkBoxState
-                    ) {
-                        checkBoxState = it
-                    }
+                    ValidateStrenghPassComponent(
+                        password = userPassword,
+                        isVisible = userPassword.text.isNotEmpty()
+                    )
+
+//                    CheckBoxWithText(
+//                        getString(R.string.check_receive_offers),
+//                        checkBoxState
+//                    ) {
+//                        checkBoxState = it
+//                    }
 
                     Column(
                         modifier = Modifier
