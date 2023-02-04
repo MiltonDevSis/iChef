@@ -29,7 +29,7 @@ fun CheckBoxWithText(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(40.dp)
+            .height(30.dp)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
