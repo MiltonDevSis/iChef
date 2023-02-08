@@ -53,7 +53,7 @@ fun ButtonIntroScreen(
                     text = title,
                     style = TextStyle(
                         fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp
+                        fontSize = 20.sp
                     ),
                     modifier = Modifier.padding(top = 6.dp)
                 )

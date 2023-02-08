@@ -22,7 +22,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
@@ -48,6 +50,7 @@ import com.mpfcoding.ichef_app.core.utils.IchefConstants
 import com.mpfcoding.ichef_app.framework.cache.SharedPrefs
 import com.mpfcoding.ichef_app.presentation.presentation.registration.components.TextTermsClickable
 import com.mpfcoding.ichef_app.presentation.presentation.registration.components.ValidateStrenghPassComponent
+import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -56,6 +59,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OptIn(DelicateCoroutinesApi::class)
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class RegistrationUserActivity : ComponentActivity() {
@@ -65,185 +69,202 @@ class RegistrationUserActivity : ComponentActivity() {
     @Inject
     lateinit var sharedPrefs: SharedPrefs
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Gray)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(14.dp)
-                ) {
-
-                    var userName by remember { mutableStateOf(TextFieldValue("")) }
-                    var userEmail by remember { mutableStateOf(TextFieldValue("")) }
-                    var userPhone by remember { mutableStateOf(TextFieldValue("")) }
-                    var userPassword by remember { mutableStateOf(TextFieldValue("")) }
-                    var userPasswordVisible by rememberSaveable { mutableStateOf(false) }
-                    var userConfirmPass by remember { mutableStateOf(TextFieldValue("")) }
-                    var userConfirmPassVisible by rememberSaveable { mutableStateOf(false) }
-
-                    OutlinedTextField(
-                        value = userName,
-                        onValueChange = {
-                            userName = it
-                        },
-                        label = { Text(text = getString(R.string.field_complete_name)) },
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        textStyle = TextStyle(
-                            fontSize = 14.sp
-                        ),
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.Person,
-                                contentDescription = null
-                            )
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Text
-                        )
-                    )
-
-                    OutlinedTextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(2.dp),
-                        value = userEmail,
-                        label = { Text(getString(R.string.field_complete_email)) },
-                        onValueChange = {
-                            userEmail = it
-                        },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.Email,
-                                contentDescription = null
-                            )
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Email
-                        )
-                    )
-
-                    OutlinedTextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(2.dp),
-                        value = userPhone,
-                        label = { Text(getString(R.string.field_complete_phone)) },
-                        onValueChange = {
-                            if (it.text.length <= 11)
-                                userPhone = it
-                        },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.Phone,
-                                contentDescription = null
-                            )
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Phone
-                        )
-                    )
-
-                    OutlinedTextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(2.dp),
-                        maxLines = 1,
-                        singleLine = true,
-                        value = userPassword,
-                        label = { Text(getString(R.string.field_complete_password)) },
-                        onValueChange = {
-                            userPassword = it
-                        },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.Lock,
-                                contentDescription = null
-                            )
-                        },
-                        visualTransformation = if (userPasswordVisible)
-                            VisualTransformation.None
-                        else
-                            PasswordVisualTransformation(),
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Password
-                        ),
-                        trailingIcon = {
-                            val image = if (userPasswordVisible)
-                                painterResource(id = R.drawable.ic_eye_close)
-                            else
-                                painterResource(id = R.drawable.ic_eye_open)
-
-                            IconButton(onClick = { userPasswordVisible = !userPasswordVisible }) {
-                                Icon(
-                                    painter = image,
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .width(24.dp)
-                                        .height(24.dp)
-                                )
-                            }
-                        }
-                    )
-
-                    OutlinedTextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(2.dp),
-                        maxLines = 1,
-                        singleLine = true,
-                        value = userConfirmPass,
-                        label = {
-                            Text(text = getString(R.string.field_complete_confirm_password))
-                        },
-                        onValueChange = { userConfirmPass = it },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.Lock,
-                                contentDescription = null
-                            )
-                        },
-                        visualTransformation = if (userConfirmPassVisible)
-                            VisualTransformation.None
-                        else
-                            PasswordVisualTransformation(),
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Password
-                        ),
-                        trailingIcon = {
-                            val image = if (userConfirmPassVisible)
-                                painterResource(id = R.drawable.ic_eye_close)
-                            else
-                                painterResource(id = R.drawable.ic_eye_open)
-
+            IChef_appTheme {
+                Column {
+                    TopAppBar(
+                        title = { Text(text = "CADASTRO") },
+                        backgroundColor = Color.Green,
+                        navigationIcon = {
                             IconButton(onClick = {
-                                userConfirmPassVisible = !userConfirmPassVisible
+                                finish()
                             }) {
                                 Icon(
-                                    painter = image,
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .width(24.dp)
-                                        .height(24.dp)
+                                    imageVector = Icons.Filled.ArrowBack,
+                                    contentDescription = "Go Back"
                                 )
                             }
                         }
                     )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color.Gray)
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(14.dp)
+                        ) {
 
-                    Spacer(modifier = Modifier.size(5.dp))
+                            var userName by remember { mutableStateOf(TextFieldValue("")) }
+                            var userEmail by remember { mutableStateOf(TextFieldValue("")) }
+                            var userPhone by remember { mutableStateOf(TextFieldValue("")) }
+                            var userPassword by remember { mutableStateOf(TextFieldValue("")) }
+                            var userPasswordVisible by rememberSaveable { mutableStateOf(false) }
+                            var userConfirmPass by remember { mutableStateOf(TextFieldValue("")) }
+                            var userConfirmPassVisible by rememberSaveable { mutableStateOf(false) }
 
-                    ValidateStrenghPassComponent(
-                        this@RegistrationUserActivity,
-                        password = userPassword,
-                        isVisible = userPassword.text.isNotEmpty()
-                    )
+                            OutlinedTextField(
+                                value = userName,
+                                onValueChange = {
+                                    userName = it
+                                },
+                                label = { Text(text = getString(R.string.field_complete_name)) },
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                textStyle = TextStyle(
+                                    fontSize = 14.sp
+                                ),
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Person,
+                                        contentDescription = null
+                                    )
+                                },
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = KeyboardType.Text
+                                )
+                            )
+
+                            OutlinedTextField(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(2.dp),
+                                value = userEmail,
+                                label = { Text(getString(R.string.field_complete_email)) },
+                                onValueChange = {
+                                    userEmail = it
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Email,
+                                        contentDescription = null
+                                    )
+                                },
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = KeyboardType.Email
+                                )
+                            )
+
+                            OutlinedTextField(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(2.dp),
+                                value = userPhone,
+                                label = { Text(getString(R.string.field_complete_phone)) },
+                                onValueChange = {
+                                    if (it.text.length <= 11)
+                                        userPhone = it
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Phone,
+                                        contentDescription = null
+                                    )
+                                },
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = KeyboardType.Phone
+                                )
+                            )
+
+                            OutlinedTextField(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(2.dp),
+                                maxLines = 1,
+                                singleLine = true,
+                                value = userPassword,
+                                label = { Text(getString(R.string.field_complete_password)) },
+                                onValueChange = {
+                                    userPassword = it
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Lock,
+                                        contentDescription = null
+                                    )
+                                },
+                                visualTransformation = if (userPasswordVisible)
+                                    VisualTransformation.None
+                                else
+                                    PasswordVisualTransformation(),
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = KeyboardType.Password
+                                ),
+                                trailingIcon = {
+                                    val image = if (userPasswordVisible)
+                                        painterResource(id = R.drawable.ic_eye_close)
+                                    else
+                                        painterResource(id = R.drawable.ic_eye_open)
+
+                                    IconButton(onClick = {
+                                        userPasswordVisible = !userPasswordVisible
+                                    }) {
+                                        Icon(
+                                            painter = image,
+                                            contentDescription = null,
+                                            modifier = Modifier
+                                                .width(24.dp)
+                                                .height(24.dp)
+                                        )
+                                    }
+                                }
+                            )
+
+                            OutlinedTextField(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(2.dp),
+                                maxLines = 1,
+                                singleLine = true,
+                                value = userConfirmPass,
+                                label = {
+                                    Text(text = getString(R.string.field_complete_confirm_password))
+                                },
+                                onValueChange = { userConfirmPass = it },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Lock,
+                                        contentDescription = null
+                                    )
+                                },
+                                visualTransformation = if (userConfirmPassVisible)
+                                    VisualTransformation.None
+                                else
+                                    PasswordVisualTransformation(),
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = KeyboardType.Password
+                                ),
+                                trailingIcon = {
+                                    val image = if (userConfirmPassVisible)
+                                        painterResource(id = R.drawable.ic_eye_close)
+                                    else
+                                        painterResource(id = R.drawable.ic_eye_open)
+
+                                    IconButton(onClick = {
+                                        userConfirmPassVisible = !userConfirmPassVisible
+                                    }) {
+                                        Icon(
+                                            painter = image,
+                                            contentDescription = null,
+                                            modifier = Modifier
+                                                .width(24.dp)
+                                                .height(24.dp)
+                                        )
+                                    }
+                                }
+                            )
+
+                            Spacer(modifier = Modifier.size(5.dp))
+
+                            ValidateStrenghPassComponent(
+                                this@RegistrationUserActivity,
+                                password = userPassword,
+                                isVisible = userPassword.text.isNotEmpty()
+                            )
 
 //                    CheckBoxWithText(
 //                        getString(R.string.check_receive_offers),
@@ -252,69 +273,71 @@ class RegistrationUserActivity : ComponentActivity() {
 //                        checkBoxState = it
 //                    }
 
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(8.dp),
-                        verticalArrangement = Arrangement.Bottom
-                    ) {
-                        TextTermsClickable(
-                            this@RegistrationUserActivity,
-                            getString(R.string.text_first_part_terms_of_use),
-                            getString(R.string.text_second_clikable_terms_of_use),
-                            getString(R.string.url_google)
-                        )
-                        Spacer(modifier = Modifier.size(12.dp))
-                        Button(
-                            onClick = {
-                                val isValidFields = viewModel.validateFields(
-                                    userName.text,
-                                    userEmail.text,
-                                    userPhone.text,
-                                    userPassword.text,
-                                    userConfirmPass.text
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(8.dp),
+                                verticalArrangement = Arrangement.Bottom
+                            ) {
+                                TextTermsClickable(
+                                    this@RegistrationUserActivity,
+                                    getString(R.string.text_first_part_terms_of_use),
+                                    getString(R.string.text_second_clikable_terms_of_use),
+                                    getString(R.string.url_google)
                                 )
-
-                                if (isValidFields.isValid) {
-                                    val user = UserRegistration(
-                                        name = userName.text,
-                                        email = userEmail.text,
-                                        phone = userPhone.text,
-                                        pass = userPassword.text
-                                    )
-                                    //TODO(remover esse GlobalScope)
-                                    GlobalScope.launch {
-                                        viewModel.montaRequest(user)
-                                    }
-                                    Toasty.success(
-                                        this@RegistrationUserActivity,
-                                        "Cadastro realizado com sucesso!",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                    sharedPrefs.putString(
-                                        key = IchefConstants.UserLogged.USER_LOGGED,
-                                        value = userName.text
+                                Spacer(modifier = Modifier.size(12.dp))
+                                Button(
+                                    onClick = {
+                                        val isValidFields = viewModel.validateFields(
+                                            userName.text,
+                                            userEmail.text,
+                                            userPhone.text,
+                                            userPassword.text,
+                                            userConfirmPass.text
                                         )
-                                    finish()
-                                } else {
-                                    Toasty.warning(
-                                        this@RegistrationUserActivity,
-                                        isValidFields.errorMessage,
-                                        Toast.LENGTH_LONG
-                                    ).show()
+
+                                        if (isValidFields.isValid) {
+                                            val user = UserRegistration(
+                                                name = userName.text,
+                                                email = userEmail.text,
+                                                phone = userPhone.text,
+                                                pass = userPassword.text
+                                            )
+                                            //TODO(remover esse GlobalScope)
+                                            GlobalScope.launch {
+                                                viewModel.montaRequest(user)
+                                            }
+                                            Toasty.success(
+                                                this@RegistrationUserActivity,
+                                                "Cadastro realizado com sucesso!",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                            sharedPrefs.putString(
+                                                key = IchefConstants.UserLogged.USER_LOGGED,
+                                                value = userName.text
+                                            )
+                                            finish()
+                                        } else {
+                                            Toasty.warning(
+                                                this@RegistrationUserActivity,
+                                                isValidFields.errorMessage,
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                                    },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(40.dp)
+                                ) {
+                                    Text(text = getString(R.string.button_registration))
                                 }
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(40.dp)
-                        ) {
-                            Text(text = getString(R.string.button_registration))
+                            }
                         }
                     }
+
+                    Spacer(modifier = Modifier.size(10.dp))
                 }
             }
-
-            Spacer(modifier = Modifier.size(10.dp))
         }
     }
 }
