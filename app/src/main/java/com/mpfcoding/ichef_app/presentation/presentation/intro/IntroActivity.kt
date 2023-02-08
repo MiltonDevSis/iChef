@@ -26,15 +26,22 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mpfcoding.ichef_app.R
+import com.mpfcoding.ichef_app.framework.cache.SharedPrefs
 import com.mpfcoding.ichef_app.presentation.presentation.intro.components.ButtonIntroScreen
-import com.mpfcoding.ichef_app.presentation.presentation.registration.RegistrationActivity
+import com.mpfcoding.ichef_app.presentation.presentation.login.LoginActivity
+import com.mpfcoding.ichef_app.presentation.presentation.registration.RegistrationUserActivity
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class IntroActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var sharedPrefs: SharedPrefs
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -42,7 +49,7 @@ class IntroActivity : ComponentActivity() {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(32.dp)
+                        .padding(top = 32.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
                 ) {
                     Spacer(modifier = Modifier.size(20.dp))
                     Image(
@@ -61,7 +68,12 @@ class IntroActivity : ComponentActivity() {
                         imageId = painterResource(id = R.drawable.ic_fastfood_24),
                         backgroundColor = Color.Green
                     ) {
-                        startActivity(Intent(this@IntroActivity, RegistrationActivity::class.java))
+                        startActivity(
+                            Intent(
+                                this@IntroActivity,
+                                RegistrationUserActivity::class.java
+                            )
+                        )
                     }
                     Spacer(modifier = Modifier.size(20.dp))
                     ButtonIntroScreen(
@@ -72,6 +84,7 @@ class IntroActivity : ComponentActivity() {
                     ) {
                         // tela de estabelecimentos
                     }
+
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.BottomCenter
@@ -81,16 +94,14 @@ class IntroActivity : ComponentActivity() {
                                 getString(R.string.text_intro_i_have_registration)
                             ),
                             onClick = {
-                                // tela de login
+                                startActivity(Intent(this@IntroActivity, LoginActivity::class.java))
                             },
                             style = TextStyle(
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 18.sp,
                                 color = Color.White,
                                 textDecoration = TextDecoration.Underline
-                            ),
-                            modifier = Modifier
-                                .padding(bottom = 6.dp)
+                            )
                         )
                     }
                 }

@@ -7,7 +7,7 @@
     <string name="button_intro_registration_subtitle">Aqui você terá descontos, brindes, promoções e muito mais.</string>
     <string name="button_intro_get_order_title">PEDIDO SEM CADASTRO</string>
     <string name="button_intro_get_order_subtitle">Aqui você pede seu lanche e lhe entregaremos, mas você não terá algumas vantagens.</string>
-    <string name="text_intro_i_have_registration">Já tenho cadastro, ENTRAR.</string>
+    <string name="text_intro_i_have_registration">FAÇA LOGIN OU CADASTRE-SE.</string>
     <string name="title_activity_registration">RegistrationActivity</string>
 
     <string name="field_complete_name">Nome completo</string>
@@ -21,4 +21,10 @@
     <string name="text_second_clikable_terms_of_use">Termos de uso</string>
     <string name="url_google">https://google.com</string>
     <string name="button_registration">Cadastrar-se</string>
+
+    <string name="check_strengh_pass_uppercase">Conter uma letra maiúscula</string>
+    <string name="check_strengh_pass_lowercase">Conter uma letra minúscula</string>
+    <string name="check_strengh_pass_numbers">Conter números</string>
+    <string name="check_strengh_pass_special_characters">Conter um caracter especial ex: (!@#$%¨*())</string>
+    <string name="check_strengh_pass_more_eight">Conter 8 ou mais caracteres</string>
 </resources>

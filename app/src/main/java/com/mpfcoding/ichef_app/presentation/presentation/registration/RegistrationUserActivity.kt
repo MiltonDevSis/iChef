@@ -44,6 +44,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mpfcoding.ichef_app.R
 import com.mpfcoding.ichef_app.core.domain.UserRegistration
+import com.mpfcoding.ichef_app.core.utils.IchefConstants
+import com.mpfcoding.ichef_app.framework.cache.SharedPrefs
 import com.mpfcoding.ichef_app.presentation.presentation.registration.components.TextTermsClickable
 import com.mpfcoding.ichef_app.presentation.presentation.registration.components.ValidateStrenghPassComponent
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,12 +54,16 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class RegistrationActivity : ComponentActivity() {
+class RegistrationUserActivity : ComponentActivity() {
 
     private val viewModel: RegistrationViewModel by viewModels()
+
+    @Inject
+    lateinit var sharedPrefs: SharedPrefs
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -234,6 +240,7 @@ class RegistrationActivity : ComponentActivity() {
                     Spacer(modifier = Modifier.size(5.dp))
 
                     ValidateStrenghPassComponent(
+                        this@RegistrationUserActivity,
                         password = userPassword,
                         isVisible = userPassword.text.isNotEmpty()
                     )
@@ -252,7 +259,7 @@ class RegistrationActivity : ComponentActivity() {
                         verticalArrangement = Arrangement.Bottom
                     ) {
                         TextTermsClickable(
-                            this@RegistrationActivity,
+                            this@RegistrationUserActivity,
                             getString(R.string.text_first_part_terms_of_use),
                             getString(R.string.text_second_clikable_terms_of_use),
                             getString(R.string.url_google)
@@ -275,12 +282,23 @@ class RegistrationActivity : ComponentActivity() {
                                         phone = userPhone.text,
                                         pass = userPassword.text
                                     )
+                                    //TODO(remover esse GlobalScope)
                                     GlobalScope.launch {
                                         viewModel.montaRequest(user)
                                     }
+                                    Toasty.success(
+                                        this@RegistrationUserActivity,
+                                        "Cadastro realizado com sucesso!",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    sharedPrefs.putString(
+                                        key = IchefConstants.UserLogged.USER_LOGGED,
+                                        value = userName.text
+                                        )
+                                    finish()
                                 } else {
                                     Toasty.warning(
-                                        this@RegistrationActivity,
+                                        this@RegistrationUserActivity,
                                         isValidFields.errorMessage,
                                         Toast.LENGTH_LONG
                                     ).show()
