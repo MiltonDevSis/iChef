@@ -15,6 +15,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,72 +32,84 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mpfcoding.ichef_app.R
+import com.mpfcoding.ichef_app.framework.cache.SharedPrefs
 import com.mpfcoding.ichef_app.presentation.presentation.intro.components.ButtonIntroScreen
-import com.mpfcoding.ichef_app.presentation.presentation.registration.RegistrationActivity
+import com.mpfcoding.ichef_app.presentation.presentation.login.LoginActivity
+import com.mpfcoding.ichef_app.presentation.presentation.registration.RegistrationUserActivity
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class IntroActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var sharedPrefs: SharedPrefs
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             IChef_appTheme {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(32.dp)
-                ) {
-                    Spacer(modifier = Modifier.size(20.dp))
-                    Image(
-                        painterResource(id = R.drawable.logo),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .width(220.dp)
-                            .height(220.dp)
-                            .align(Alignment.CenterHorizontally)
+                Column {
+                    TopAppBar(
+                        title = { Text(text = "ICHEF APP") },
+                        backgroundColor = Color.Green,
                     )
-                    Spacer(modifier = Modifier.size(30.dp))
-                    ButtonIntroScreen(
-                        title = getString(R.string.button_intro_registration_title),
-                        subtitle = getString(R.string.button_intro_registration_subtitle),
-                        imageId = painterResource(id = R.drawable.ic_fastfood_24),
-                        backgroundColor = Color.Green
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = 32.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
                     ) {
-                        startActivity(Intent(this@IntroActivity, RegistrationActivity::class.java))
-                    }
-                    Spacer(modifier = Modifier.size(20.dp))
-                    ButtonIntroScreen(
-                        title = getString(R.string.button_intro_get_order_title),
-                        subtitle = getString(R.string.button_intro_get_order_subtitle),
-                        imageId = painterResource(id = R.drawable.icon_scooter_64),
-                        backgroundColor = Color.Red
-                    ) {
-                        // tela de estabelecimentos
-                    }
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.BottomCenter
-                    ) {
-                        ClickableText(
-                            text = AnnotatedString(
-                                getString(R.string.text_intro_i_have_registration)
-                            ),
-                            onClick = {
-                                // tela de login
-                            },
-                            style = TextStyle(
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 18.sp,
-                                color = Color.White,
-                                textDecoration = TextDecoration.Underline
-                            ),
+                        Spacer(modifier = Modifier.size(20.dp))
+                        Image(
+                            painterResource(id = R.drawable.logo),
+                            contentDescription = "",
                             modifier = Modifier
-                                .padding(bottom = 6.dp)
+                                .fillMaxWidth()
+                                .width(220.dp)
+                                .height(220.dp)
+                                .align(Alignment.CenterHorizontally)
                         )
+                        Spacer(modifier = Modifier.size(30.dp))
+                        ButtonIntroScreen(
+                            title = getString(R.string.button_intro_registration_title),
+                            subtitle = getString(R.string.button_intro_registration_subtitle),
+                            imageId = painterResource(id = R.drawable.icon_scooter_64),
+                            backgroundColor = Color.Green
+                        ) {
+
+                        }
+                        Spacer(modifier = Modifier.size(20.dp))
+                        ButtonIntroScreen(
+                            title = getString(R.string.button_intro_get_order_title),
+                            subtitle = getString(R.string.button_intro_get_order_subtitle),
+                            imageId = painterResource(id = R.drawable.ic_fastfood_24),
+                            backgroundColor = Color.Red
+                        ) {
+                            // tela de estabelecimentos
+                        }
+
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.BottomCenter
+                        ) {
+                            ClickableText(
+                                text = AnnotatedString(
+                                    getString(R.string.text_intro_i_have_registration)
+                                ),
+                                onClick = {
+                                    startActivity(Intent(this@IntroActivity, LoginActivity::class.java))
+                                },
+                                style = TextStyle(
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 18.sp,
+                                    color = Color.White,
+                                    textDecoration = TextDecoration.Underline
+                                )
+                            )
+                        }
                     }
                 }
             }
