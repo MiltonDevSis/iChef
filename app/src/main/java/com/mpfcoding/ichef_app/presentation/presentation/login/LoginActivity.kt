@@ -43,12 +43,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
 import com.mpfcoding.ichef_app.R
+import com.mpfcoding.ichef_app.presentation.presentation.MainActivity
 import com.mpfcoding.ichef_app.presentation.presentation.registration.RegistrationUserActivity
-import com.mpfcoding.ichef_app.presentation.presentation.registration.RegistrationViewModel
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @AndroidEntryPoint
@@ -157,7 +159,7 @@ class LoginActivity : ComponentActivity() {
                             style = TextStyle(
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 18.sp,
-                                color = Color.White,
+                                color = Color.Black,
                                 textDecoration = TextDecoration.Underline,
                                 textAlign = TextAlign.Center
                             ),
@@ -168,12 +170,21 @@ class LoginActivity : ComponentActivity() {
 
                         Button(
                             onClick = {
-                                startActivity(
-                                    Intent(
-                                        this@LoginActivity,
-                                        RegistrationUserActivity::class.java
+                                lifecycleScope.launch {
+                                    val response = viewModel.montaRequest(
+                                        email = userEmail.text,
+                                        senha = userPassword.text
                                     )
-                                )
+
+                                    if (response) {
+                                        startActivity(
+                                            Intent(
+                                                this@LoginActivity,
+                                                MainActivity::class.java
+                                            )
+                                        )
+                                    }
+                                }
                             },
                             enabled = viewModel.isValidFields(userEmail.text, userPassword.text),
                             modifier = Modifier

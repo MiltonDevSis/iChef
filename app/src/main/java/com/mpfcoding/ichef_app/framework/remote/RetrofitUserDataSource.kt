@@ -7,9 +7,18 @@ import javax.inject.Inject
 
 class RetrofitUserDataSource @Inject constructor(
     private val ichefApi: IchefApi
-): UserRemoteDataSource {
+) : UserRemoteDataSource {
 
     override suspend fun userRegistration(userRegistration: UserRegistrationRequest) {
         return ichefApi.userRegistration(userRegistration)
+    }
+
+    override suspend fun getUser(email: String, senha: String): Boolean {
+        try {
+            val response = ichefApi.getUser("eq.$email", "eq.$senha")
+            return response.isNotEmpty()
+        } catch (e: Exception) {
+            throw Throwable(e.message)
+        }
     }
 }
