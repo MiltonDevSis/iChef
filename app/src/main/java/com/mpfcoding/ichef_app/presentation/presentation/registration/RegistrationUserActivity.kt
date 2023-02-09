@@ -44,6 +44,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
 import com.mpfcoding.ichef_app.R
 import com.mpfcoding.ichef_app.core.domain.UserRegistration
 import com.mpfcoding.ichef_app.core.utils.IchefConstants
@@ -53,13 +54,10 @@ import com.mpfcoding.ichef_app.presentation.presentation.registration.components
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@OptIn(DelicateCoroutinesApi::class)
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class RegistrationUserActivity : ComponentActivity() {
@@ -303,8 +301,7 @@ class RegistrationUserActivity : ComponentActivity() {
                                                 phone = userPhone.text,
                                                 pass = userPassword.text
                                             )
-                                            //TODO(remover esse GlobalScope)
-                                            GlobalScope.launch {
+                                            lifecycleScope.launch {
                                                 viewModel.montaRequest(user)
                                             }
                                             Toasty.success(

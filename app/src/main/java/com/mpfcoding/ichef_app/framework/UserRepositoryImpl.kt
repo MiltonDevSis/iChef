@@ -13,4 +13,8 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun userRegistration(userRegistration: UserRegistration) {
         dataSource.userRegistration(userRegistration = userRegistration.toRequest())
     }
+
+    override suspend fun getUser(email: String, senha: String): Boolean {
+        return dataSource.getUser(email, senha)
+    }
 }
