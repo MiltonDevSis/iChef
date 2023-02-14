@@ -64,7 +64,7 @@ class LoginActivity : ComponentActivity() {
             IChef_appTheme {
                 Column {
                     TopAppBar(
-                        title = { Text(text = "LOGIN") },
+                        title = { Text(text = "AUTENTICAÇÃO") },
                         backgroundColor = Color.Green,
                         navigationIcon = {
                             IconButton(onClick = {
