@@ -41,6 +41,16 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".presentation.presentation.stores.StoreActivity"
+            android:exported="false"
+            android:label="@string/title_activity_intro"
+            android:theme="@style/Theme.AppCompat"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".presentation.presentation.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.App.Starting"

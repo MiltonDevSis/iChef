@@ -15,12 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,7 +31,7 @@ import com.mpfcoding.ichef_app.R
 import com.mpfcoding.ichef_app.framework.cache.SharedPrefs
 import com.mpfcoding.ichef_app.presentation.presentation.intro.components.ButtonIntroScreen
 import com.mpfcoding.ichef_app.presentation.presentation.login.LoginActivity
-import com.mpfcoding.ichef_app.presentation.presentation.registration.RegistrationUserActivity
+import com.mpfcoding.ichef_app.presentation.presentation.stores.StoreActivity
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -88,7 +84,7 @@ class IntroActivity : ComponentActivity() {
                             imageId = painterResource(id = R.drawable.ic_fastfood_24),
                             backgroundColor = Color.Red
                         ) {
-                            // tela de estabelecimentos
+                            startActivity(Intent(this@IntroActivity, StoreActivity::class.java))
                         }
 
                         Box(
@@ -100,7 +96,12 @@ class IntroActivity : ComponentActivity() {
                                     getString(R.string.text_intro_i_have_registration)
                                 ),
                                 onClick = {
-                                    startActivity(Intent(this@IntroActivity, LoginActivity::class.java))
+                                    startActivity(
+                                        Intent(
+                                            this@IntroActivity,
+                                            LoginActivity::class.java
+                                        )
+                                    )
                                 },
                                 style = TextStyle(
                                     fontWeight = FontWeight.Bold,
