@@ -72,7 +72,7 @@ class LoginActivity : ComponentActivity() {
                             }) {
                                 Icon(
                                     imageVector = Icons.Filled.ArrowBack,
-                                    contentDescription = "Go Back"
+                                    contentDescription = null
                                 )
                             }
                         }
