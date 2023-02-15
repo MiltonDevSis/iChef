@@ -1,22 +1,18 @@
 package com.mpfcoding.ichef_app.presentation.presentation.stores.components
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,13 +24,9 @@ import androidx.compose.ui.unit.sp
 import com.mpfcoding.ichef_app.R
 import com.mpfcoding.ichef_app.core.domain.Store
 
-@SuppressLint("ModifierParameter")
 @Composable
 fun StoreCard(
-    store: Store,
-    modifier: Modifier = Modifier
-        .fillMaxWidth()
-        .height(160.dp)
+    store: Store
 ) {
     Card(
         modifier = Modifier
@@ -43,46 +35,56 @@ fun StoreCard(
                 onClick = {}
             ),
         elevation = 4.dp,
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(12.dp)
     ) {
 
-        Box(contentAlignment = Alignment.TopEnd) {
+        Row(modifier = Modifier.fillMaxSize()) {
 
-            Column(modifier = Modifier.fillMaxSize()) {
+            Image(
+                contentScale = ContentScale.Inside,
+                painter = painterResource(
+                    R.drawable.logo
+                ),
+                contentDescription = null,
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .weight(3F, true)
+            )
 
-                Image(
-                    contentScale = ContentScale.Crop,
-                    modifier = modifier,
-                    painter = painterResource(
-                        R.drawable.icon_scooter_64
-                    ),
-                    contentDescription = null
+            Column(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .align(Alignment.CenterVertically)
+                    .weight(6F, true)
+            ) {
+                Text(
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    text = store.name
                 )
-
-                Column(modifier = Modifier.padding(8.dp)) {
-                    Text(
-//                        color = textColor,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        text = store.name
-                    )
-                    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                        Text(
-                            fontSize = 14.sp,
-                            text = "$${store.name}"
-                        )
-                        Text(
-                            fontSize = 14.sp,
-                            text = "Tags: ${store.stars}"
-                        )
-                    }
-                }
+                Spacer(modifier = Modifier.size(4.dp))
+                Text(
+                    fontSize = 14.sp,
+                    text = "" +
+                            "${store.nameStreet.uppercase()}," +
+                            " ${store.numberHouse.uppercase()}," +
+                            " ${store.neighborood.uppercase()}," +
+                            " ${store.city.uppercase()}" +
+                            ""
+                )
+                Spacer(modifier = Modifier.size(4.dp))
+                Text(
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.Bold,
+                    text = "Tempo de espera: ${store.timeToDone}"
+                )
             }
 
             FavoriteButton(
                 modifier = Modifier
-                    .padding(12.dp),
-//                color = textColor
+                    .padding(12.dp)
+                    .align(Alignment.CenterVertically)
+                    .weight(1F, true)
             )
         }
     }

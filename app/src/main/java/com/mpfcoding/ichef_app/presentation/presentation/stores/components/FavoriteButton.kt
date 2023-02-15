@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 @Composable
 fun FavoriteButton(
     modifier: Modifier = Modifier,
-    color: Color = Color(0xffE91E63)
+    color: Color = Color(0xFFFF0101)
 ) {
 
     var isFavorite by remember { mutableStateOf(false) }
