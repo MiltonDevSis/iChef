@@ -5,6 +5,7 @@ import com.mpfcoding.ichef_app.core.data.repository.UserRepository
 import com.mpfcoding.ichef_app.core.domain.Store
 import com.mpfcoding.ichef_app.core.domain.UserRegistration
 import com.mpfcoding.ichef_app.core.domain.toRequest
+import com.mpfcoding.ichef_app.core.network.model.toDoamin
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -20,6 +21,8 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getStore(): List<Store> {
-        return dataSource.getStore()
+        return dataSource.getStore().map {
+            it.toDoamin()
+        }
     }
 }

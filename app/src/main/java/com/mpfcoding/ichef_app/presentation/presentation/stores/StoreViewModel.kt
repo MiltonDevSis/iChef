@@ -1,5 +1,6 @@
 package com.mpfcoding.ichef_app.presentation.presentation.stores
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mpfcoding.ichef_app.core.data.repository.UserRepository
@@ -15,12 +16,13 @@ class StoreViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    private val _stores = MutableStateFlow<List<Store>>(emptyList())
-    var stores = _stores.asStateFlow()
+    var storeList = mutableStateListOf<Store>()
 
     fun fetchStores(){
         viewModelScope.launch {
-            _stores.value = userRepository.getStore()
+            val itens = userRepository.getStore()
+            storeList.clear()
+            storeList.addAll(itens)
         }
     }
 }

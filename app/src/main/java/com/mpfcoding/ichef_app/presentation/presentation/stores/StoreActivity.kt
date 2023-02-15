@@ -20,7 +20,6 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.mpfcoding.ichef_app.core.domain.Store
 import com.mpfcoding.ichef_app.presentation.presentation.stores.components.StoreCard
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,7 +59,7 @@ class StoreActivity : ComponentActivity() {
                         contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                         content = {
-                            items(viewModel.stores.value) { item ->
+                            items(viewModel.storeList) { item ->
                                 StoreCard(store = item)
                             }
                         }

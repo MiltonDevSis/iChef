@@ -2,6 +2,7 @@ package com.mpfcoding.ichef_app.framework.remote
 
 import com.mpfcoding.ichef_app.core.data.UserRemoteDataSource
 import com.mpfcoding.ichef_app.core.domain.Store
+import com.mpfcoding.ichef_app.core.network.model.StoreResponse
 import com.mpfcoding.ichef_app.core.network.model.UserRegistrationRequest
 import com.mpfcoding.ichef_app.framework.network.IchefApi
 import javax.inject.Inject
@@ -23,7 +24,7 @@ class RetrofitUserDataSource @Inject constructor(
         }
     }
 
-    override suspend fun getStore(): List<Store> {
+    override suspend fun getStore(): List<StoreResponse> {
         try {
             return ichefApi.getStores()
         } catch (e: Exception) {
