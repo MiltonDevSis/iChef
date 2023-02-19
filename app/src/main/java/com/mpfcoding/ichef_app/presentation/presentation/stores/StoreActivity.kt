@@ -20,6 +20,10 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.mpfcoding.ichef_app.R
+import com.mpfcoding.ichef_app.core.utils.TOOLBAR_COLOR
+import com.mpfcoding.ichef_app.core.utils.TOOLBAR_CONTENT_COLOR
+import com.mpfcoding.ichef_app.core.utils.fromHex
 import com.mpfcoding.ichef_app.presentation.presentation.stores.components.StoreCard
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +43,8 @@ class StoreActivity : ComponentActivity() {
                 Column {
                     TopAppBar(
                         title = { Text(text = "ESTABELECIMENTOS") },
-                        backgroundColor = Color.Green,
+                        backgroundColor = Color.fromHex(TOOLBAR_COLOR),
+                        contentColor = Color.fromHex(TOOLBAR_CONTENT_COLOR),
                         navigationIcon = {
                             IconButton(onClick = {
                                 finish()
