@@ -4,33 +4,34 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mpfcoding.ichef_app.core.utils.IchefConstants
 import com.mpfcoding.ichef_app.framework.cache.SharedPrefs
+import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.CategoriesListComponent
+import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.MyFloatingActionButton
+import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.PopularOrdersComponent
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.PromoDayComponent
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.menuapp.AppBar
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.menuapp.MyBottomAppBarComponent
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
-import es.dmoral.toasty.Toasty
 import javax.inject.Inject
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @AndroidEntryPoint
 class DashboardActivity : ComponentActivity() {
 
@@ -41,7 +42,7 @@ class DashboardActivity : ComponentActivity() {
 
     private lateinit var nameUserLogged: String
 
-    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+    @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -56,19 +57,22 @@ class DashboardActivity : ComponentActivity() {
                 val scaffoldState = rememberScaffoldState()
 
                 Scaffold(
+                    modifier = Modifier
+                        .fillMaxSize(),
                     scaffoldState = scaffoldState,
                     topBar = {
-                        AppBar()
+                        AppBar(
+                            nameUserLogged = nameUserLogged
+                        )
                     },
                     bottomBar = {
                         MyBottomAppBarComponent(
-                            onOrder = {
-                                Toasty.success(this, "Home", Toasty.LENGTH_LONG).show()
-                            },
-                            onLocation = {
-                                Toasty.success(this, "Back", Toasty.LENGTH_LONG).show()
-                            },
-                            onConfigs = {
+                            onHome = { type ->
+                                when (type) {
+                                    "" -> {
+
+                                    }
+                                }
                                 // Sair
 //                                sharedPrefs.clearSharedPreferences()
 //
@@ -80,44 +84,66 @@ class DashboardActivity : ComponentActivity() {
 //                                    Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
 //                                this@DashboardActivity.startActivity(intent)
 //                                this@DashboardActivity.finish()
-                            },
-                            onProfile = {
-
                             }
                         )
                     },
                     floatingActionButton = {
-                        FloatingActionButton(
-                            onClick = {},
-                            backgroundColor = Color(0xffFFA000)
-                        ) {
-                            Icon(
-                                Icons.Filled.ShoppingCart, tint = Color.White,
-                                contentDescription = null
-                            )
-                        }
+                        MyFloatingActionButton()
                     },
                     isFloatingActionButtonDocked = true,
                     floatingActionButtonPosition = FabPosition.Center,
+                    content = {
 
-                    ) {
+                        LazyColumn {
+                            items(1) {
+                                PromoDayComponent(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(160.dp)
+                                        .padding(horizontal = 12.dp, vertical = 6.dp)
+                                )
 
-                    Column {
-                        PromoDayComponent (
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(170.dp)
-                                .padding(horizontal = 12.dp, vertical = 6.dp)
-                        )
+                                Text(
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    text = "Categorias",
+                                    modifier = Modifier.padding(start = 12.dp, top = 6.dp)
+                                )
 
-                        Text(
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold,
-                            text = "Categorias",
-                            modifier = Modifier.padding(start = 12.dp, top = 6.dp)
-                        )
+                                CategoriesListComponent(
+                                    onItemClick = {
+                                        when (it.title) {
+                                            LaunchCategoriesEnum.PIZZA -> {}
+                                            LaunchCategoriesEnum.XIS -> {}
+                                            LaunchCategoriesEnum.BEBIDA -> {}
+                                            LaunchCategoriesEnum.TABUA -> {}
+                                            LaunchCategoriesEnum.PORCAO -> {}
+                                            else -> { // pratos
+                                            }
+                                        }
+                                    }
+                                )
+
+                                Text(
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    text = "Populares",
+                                    modifier = Modifier.padding(start = 12.dp, top = 6.dp)
+                                )
+
+                                PopularOrdersComponent(onItemClick = {})
+
+                                Text(
+                                    //Todo(Esse Text é necessário pois senão a bottomBar corta o último component)
+                                    text = "",
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(60.dp)
+                                )
+                            }
+                        }
                     }
-                }
+                )
             }
         }
     }

@@ -1,8 +1,6 @@
 package com.mpfcoding.ichef_app.presentation.presentation.dashboard.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,7 +22,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mpfcoding.ichef_app.R
-import com.mpfcoding.ichef_app.presentation.presentation.stores.components.FavoriteButton
 
 @Composable
 fun PromoDayComponent(
@@ -39,14 +36,15 @@ fun PromoDayComponent(
         Row(modifier = Modifier.fillMaxSize()) {
 
             Image(
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillWidth,
                 painter = painterResource(
-                    R.drawable.logo
+                    R.drawable.xis_coracao
                 ),
                 contentDescription = null,
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
-                    .weight(3F, true)
+                    .weight(3.5F, true)
+                    .padding(start = 6.dp)
             )
 
             Column(
@@ -57,13 +55,13 @@ fun PromoDayComponent(
                 Text(
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    text = "Promoção do dia",
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                    text = "Promoção da semana",
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
                 Spacer(modifier = Modifier.size(14.dp))
                 Text(
-                    fontSize = 14.sp,
-                    text = "Xis salada de frango com cheddar",
+                    fontSize = 18.sp,
+                    text = "Xis coração",
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 Spacer(modifier = Modifier.size(8.dp))
@@ -79,10 +77,9 @@ fun PromoDayComponent(
                 Spacer(modifier = Modifier.size(8.dp))
                 Text(
                     fontSize = 18.sp,
-                    text = "por apenas R$19.90",
+                    text = "Por apenas R$19.90",
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     style = TextStyle(
-                        textDecoration = TextDecoration.LineThrough,
                         color = Color.Green
                     )
                 )

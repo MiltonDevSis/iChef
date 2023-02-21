@@ -9,10 +9,12 @@ import com.mpfcoding.ichef_app.core.utils.TOOLBAR_CONTENT_COLOR
 import com.mpfcoding.ichef_app.core.utils.fromHex
 
 @Composable
-fun AppBar() {
+fun AppBar(
+    nameUserLogged: String
+) {
     TopAppBar(
         title = {
-            Text(text = "XIS DO CHEF - LANCHONETE")
+            Text(text = "Olá, $nameUserLogged")
         },
         backgroundColor = Color.fromHex(TOOLBAR_COLOR),
         contentColor = Color.fromHex(TOOLBAR_CONTENT_COLOR)

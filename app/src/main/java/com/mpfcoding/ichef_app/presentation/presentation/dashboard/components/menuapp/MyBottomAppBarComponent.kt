@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.Icon
@@ -16,10 +17,7 @@ import com.mpfcoding.ichef_app.R
 
 @Composable
 fun MyBottomAppBarComponent(
-    onOrder: (() -> Unit),
-    onLocation: (() -> Unit),
-    onConfigs: (() -> Unit),
-    onProfile: (() -> Unit)
+    onHome: ((type: String) -> Unit)
 ) {
     BottomAppBar(
         cutoutShape = CircleShape,
@@ -31,36 +29,41 @@ fun MyBottomAppBarComponent(
                     .padding(12.dp)
             ) {
                 IconButton(
-                    onClick = { onOrder.invoke() }
+                    onClick = { onHome("Home") }
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_pedidos),
-                        contentDescription = null
+                        painter = painterResource(id = R.drawable.ic_home),
+                        contentDescription = null,
+                        modifier = Modifier.size(25.dp)
                     )
                 }
 
                 IconButton(
-                    onClick = { onLocation.invoke() }
+                    onClick = {  }
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_meus_enderecos),
-                        contentDescription = null
+                        painter = painterResource(id = R.drawable.ic_profile),
+                        contentDescription = null,
+                        modifier = Modifier.size(25.dp)
                     )
                 }
 
                 IconButton(onClick = {}) {}
 
-                IconButton(onClick = { onConfigs.invoke() }) {
+                IconButton(onClick = {  }) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_configs),
-                        contentDescription = null
+                        painter = painterResource(id = R.drawable.ic_message),
+                        contentDescription = null,
+                        modifier = Modifier.size(25.dp)
                     )
                 }
 
-                IconButton(onClick = { onProfile.invoke() }) {
+                IconButton(
+                    onClick = {  }) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_user),
-                        contentDescription = null
+                        painter = painterResource(id = R.drawable.ic_settings),
+                        contentDescription = null,
+                        modifier = Modifier.size(25.dp)
                     )
                 }
             }
