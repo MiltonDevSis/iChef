@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
 import com.mpfcoding.ichef_app.core.utils.IchefConstants
 import com.mpfcoding.ichef_app.framework.cache.SharedPrefs
 import com.mpfcoding.ichef_app.framework.navigation.DashboardNavigation
@@ -56,7 +55,6 @@ class DashboardActivity : ComponentActivity() {
         setContent {
             IChef_appTheme {
                 val scaffoldState = rememberScaffoldState()
-                val navController = rememberNavController()
 
                 Scaffold(
                     modifier = Modifier
@@ -81,7 +79,12 @@ class DashboardActivity : ComponentActivity() {
 
                                     }
                                     else -> {
-                                        startActivity(Intent(this@DashboardActivity, SettingsActivity::class.java))
+                                        startActivity(
+                                            Intent(
+                                                this@DashboardActivity,
+                                                SettingsActivity::class.java
+                                            )
+                                        )
                                     }
                                 }
                             }
@@ -131,7 +134,9 @@ class DashboardActivity : ComponentActivity() {
                                     modifier = Modifier.padding(start = 12.dp, top = 6.dp)
                                 )
 
-                                PopularOrdersComponent(onItemClick = {})
+                                PopularOrdersComponent(onItemClick = {
+
+                                })
 
                                 Text(
                                     //Todo(Esse Text é necessário pois senão a bottomBar corta o último component)
