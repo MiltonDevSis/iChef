@@ -48,6 +48,9 @@ import androidx.lifecycle.lifecycleScope
 import com.mpfcoding.ichef_app.R
 import com.mpfcoding.ichef_app.core.domain.UserRegistration
 import com.mpfcoding.ichef_app.core.utils.IchefConstants
+import com.mpfcoding.ichef_app.core.utils.TOOLBAR_COLOR
+import com.mpfcoding.ichef_app.core.utils.TOOLBAR_CONTENT_COLOR
+import com.mpfcoding.ichef_app.core.utils.fromHex
 import com.mpfcoding.ichef_app.framework.cache.SharedPrefs
 import com.mpfcoding.ichef_app.presentation.presentation.registration.components.TextTermsClickable
 import com.mpfcoding.ichef_app.presentation.presentation.registration.components.ValidateStrenghPassComponent
@@ -74,7 +77,8 @@ class RegistrationUserActivity : ComponentActivity() {
                 Column {
                     TopAppBar(
                         title = { Text(text = "CADASTRO") },
-                        backgroundColor = Color.Green,
+                        backgroundColor = Color.fromHex(TOOLBAR_COLOR),
+                        contentColor = Color.fromHex(TOOLBAR_CONTENT_COLOR),
                         navigationIcon = {
                             IconButton(onClick = {
                                 finish()
@@ -89,7 +93,6 @@ class RegistrationUserActivity : ComponentActivity() {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(Color.Gray)
                     ) {
                         Column(
                             modifier = Modifier

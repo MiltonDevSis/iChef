@@ -45,10 +45,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
 import com.mpfcoding.ichef_app.R
-import com.mpfcoding.ichef_app.presentation.presentation.MainActivity
+import com.mpfcoding.ichef_app.core.utils.TOOLBAR_COLOR
+import com.mpfcoding.ichef_app.core.utils.TOOLBAR_CONTENT_COLOR
+import com.mpfcoding.ichef_app.core.utils.fromHex
+import com.mpfcoding.ichef_app.presentation.presentation.dashboard.DashboardActivity
 import com.mpfcoding.ichef_app.presentation.presentation.registration.RegistrationUserActivity
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
@@ -65,7 +69,8 @@ class LoginActivity : ComponentActivity() {
                 Column {
                     TopAppBar(
                         title = { Text(text = "AUTENTICAÇÃO") },
-                        backgroundColor = Color.Green,
+                        backgroundColor = Color.fromHex(TOOLBAR_COLOR),
+                        contentColor = Color.fromHex(TOOLBAR_CONTENT_COLOR),
                         navigationIcon = {
                             IconButton(onClick = {
                                 finish()
@@ -180,9 +185,15 @@ class LoginActivity : ComponentActivity() {
                                         startActivity(
                                             Intent(
                                                 this@LoginActivity,
-                                                MainActivity::class.java
+                                                DashboardActivity::class.java
                                             )
                                         )
+                                    } else {
+                                        Toasty.error(
+                                            this@LoginActivity,
+                                            "Email ou senha inválido!",
+                                            Toasty.LENGTH_LONG
+                                        ).show()
                                     }
                                 }
                             },

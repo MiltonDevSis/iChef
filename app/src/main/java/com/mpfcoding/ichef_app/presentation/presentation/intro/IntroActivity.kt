@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,7 +29,11 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mpfcoding.ichef_app.R
+import com.mpfcoding.ichef_app.core.utils.TOOLBAR_COLOR
+import com.mpfcoding.ichef_app.core.utils.TOOLBAR_CONTENT_COLOR
+import com.mpfcoding.ichef_app.core.utils.fromHex
 import com.mpfcoding.ichef_app.framework.cache.SharedPrefs
+import com.mpfcoding.ichef_app.presentation.presentation.dashboard.DashboardActivity
 import com.mpfcoding.ichef_app.presentation.presentation.intro.components.ButtonIntroScreen
 import com.mpfcoding.ichef_app.presentation.presentation.login.LoginActivity
 import com.mpfcoding.ichef_app.presentation.presentation.stores.StoreActivity
@@ -41,6 +46,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class IntroActivity : ComponentActivity() {
 
+    //private val viewModel: IntroViewModel by viewModels()
+
     @Inject
     lateinit var sharedPrefs: SharedPrefs
 
@@ -51,7 +58,8 @@ class IntroActivity : ComponentActivity() {
                 Column {
                     TopAppBar(
                         title = { Text(text = "ICHEF APP") },
-                        backgroundColor = Color.Green,
+                        backgroundColor = Color.fromHex(TOOLBAR_COLOR),
+                        contentColor = Color.fromHex(TOOLBAR_CONTENT_COLOR)
                     )
                     Column(
                         modifier = Modifier
@@ -75,7 +83,7 @@ class IntroActivity : ComponentActivity() {
                             imageId = painterResource(id = R.drawable.icon_scooter_64),
                             backgroundColor = Color.Green
                         ) {
-
+                            startActivity(Intent(this@IntroActivity, DashboardActivity::class.java))
                         }
                         Spacer(modifier = Modifier.size(20.dp))
                         ButtonIntroScreen(
@@ -106,7 +114,7 @@ class IntroActivity : ComponentActivity() {
                                 style = TextStyle(
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 18.sp,
-                                    color = Color.White,
+                                    color = Color.Black,
                                     textDecoration = TextDecoration.Underline
                                 )
                             )

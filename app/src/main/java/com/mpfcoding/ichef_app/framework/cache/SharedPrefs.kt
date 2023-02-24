@@ -2,11 +2,12 @@ package com.mpfcoding.ichef_app.framework.cache
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.mpfcoding.ichef_app.core.utils.IchefConstants.UserLogged.USER_LOGGED
 
 class SharedPrefs(context: Context) {
 
     private val mPreferences: SharedPreferences =
-            context.getSharedPreferences("ats_frete_shared", Context.MODE_PRIVATE)
+            context.getSharedPreferences("ichef_shared", Context.MODE_PRIVATE)
 
     fun putFloat(key: String, value: Float?) {
         mPreferences.edit().putFloat(key, value ?: 0f).apply()
@@ -61,6 +62,6 @@ class SharedPrefs(context: Context) {
     }
 
     fun clearSharedPreferences() {
-//        remove(NAME_USER)
+        remove(USER_LOGGED)
     }
 }
