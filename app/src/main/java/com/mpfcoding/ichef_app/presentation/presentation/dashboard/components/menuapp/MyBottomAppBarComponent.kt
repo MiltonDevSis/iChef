@@ -14,10 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.mpfcoding.ichef_app.R
+import com.mpfcoding.ichef_app.framework.navigation.DashboardNavigation
 
 @Composable
 fun MyBottomAppBarComponent(
-    onHome: ((type: String) -> Unit)
+    onHome: ((type: DashboardNavigation) -> Unit)
 ) {
     BottomAppBar(
         cutoutShape = CircleShape,
@@ -29,7 +30,7 @@ fun MyBottomAppBarComponent(
                     .padding(12.dp)
             ) {
                 IconButton(
-                    onClick = { onHome("Home") }
+                    onClick = { onHome(DashboardNavigation.HOME) }
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_home),
@@ -39,7 +40,7 @@ fun MyBottomAppBarComponent(
                 }
 
                 IconButton(
-                    onClick = {  }
+                    onClick = { onHome(DashboardNavigation.HOME) }
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_profile),
@@ -50,7 +51,7 @@ fun MyBottomAppBarComponent(
 
                 IconButton(onClick = {}) {}
 
-                IconButton(onClick = {  }) {
+                IconButton(onClick = { onHome(DashboardNavigation.HOME) }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_message),
                         contentDescription = null,
@@ -59,7 +60,7 @@ fun MyBottomAppBarComponent(
                 }
 
                 IconButton(
-                    onClick = {  }) {
+                    onClick = { onHome(DashboardNavigation.SETTINGS) }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_settings),
                         contentDescription = null,

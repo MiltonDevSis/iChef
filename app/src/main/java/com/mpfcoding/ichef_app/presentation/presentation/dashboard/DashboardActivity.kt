@@ -1,16 +1,15 @@
 package com.mpfcoding.ichef_app.presentation.presentation.dashboard
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -19,14 +18,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import com.mpfcoding.ichef_app.core.utils.IchefConstants
 import com.mpfcoding.ichef_app.framework.cache.SharedPrefs
+import com.mpfcoding.ichef_app.framework.navigation.DashboardNavigation
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.CategoriesListComponent
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.MyFloatingActionButton
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.PopularOrdersComponent
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.PromoDayComponent
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.menuapp.AppBar
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.menuapp.MyBottomAppBarComponent
+import com.mpfcoding.ichef_app.presentation.presentation.dashboard.settings.SettingsActivity
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -42,7 +44,6 @@ class DashboardActivity : ComponentActivity() {
 
     private lateinit var nameUserLogged: String
 
-    @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -55,6 +56,7 @@ class DashboardActivity : ComponentActivity() {
         setContent {
             IChef_appTheme {
                 val scaffoldState = rememberScaffoldState()
+                val navController = rememberNavController()
 
                 Scaffold(
                     modifier = Modifier
@@ -69,21 +71,19 @@ class DashboardActivity : ComponentActivity() {
                         MyBottomAppBarComponent(
                             onHome = { type ->
                                 when (type) {
-                                    "" -> {
+                                    DashboardNavigation.HOME -> {
 
                                     }
+                                    DashboardNavigation.PROFILE -> {
+
+                                    }
+                                    DashboardNavigation.SUPPORT -> {
+
+                                    }
+                                    else -> {
+                                        startActivity(Intent(this@DashboardActivity, SettingsActivity::class.java))
+                                    }
                                 }
-                                // Sair
-//                                sharedPrefs.clearSharedPreferences()
-//
-//                                val intent = Intent(
-//                                    this@DashboardActivity,
-//                                    IntroActivity::class.java
-//                                )
-//                                intent.flags =
-//                                    Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//                                this@DashboardActivity.startActivity(intent)
-//                                this@DashboardActivity.finish()
                             }
                         )
                     },

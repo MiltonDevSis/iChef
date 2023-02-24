@@ -56,5 +56,11 @@
             android:theme="@style/Theme.Design.Light"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".presentation.presentation.dashboard.settings.SettingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Design.Light"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 </manifest>
