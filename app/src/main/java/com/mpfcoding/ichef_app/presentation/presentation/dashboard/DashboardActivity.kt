@@ -27,6 +27,7 @@ import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.Po
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.PromoDayComponent
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.menuapp.AppBar
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.menuapp.MyBottomAppBarComponent
+import com.mpfcoding.ichef_app.presentation.presentation.dashboard.launch.LaunchScreenActivity
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.settings.SettingsActivity
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -134,8 +135,17 @@ class DashboardActivity : ComponentActivity() {
                                     modifier = Modifier.padding(start = 12.dp, top = 6.dp)
                                 )
 
-                                PopularOrdersComponent(onItemClick = {
+                                PopularOrdersComponent(onItemClick = { popularLaunch ->
 
+                                    val intent = Intent(
+                                        this@DashboardActivity,
+                                        LaunchScreenActivity::class.java
+                                    ).apply {
+                                        putExtra("popularLaunchId", popularLaunch.productId)
+                                        putExtra("popularLaunchName", popularLaunch.productName)
+                                        putExtra("popularLaunchPrice", popularLaunch.productPrice)
+                                    }
+                                    startActivity(intent)
                                 })
 
                                 Text(
