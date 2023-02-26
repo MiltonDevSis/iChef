@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,9 +16,12 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mpfcoding.ichef_app.R
+import com.mpfcoding.ichef_app.core.domain.PopularOrder
 import com.mpfcoding.ichef_app.core.utils.IchefConstants
 import com.mpfcoding.ichef_app.framework.cache.SharedPrefs
 import com.mpfcoding.ichef_app.framework.navigation.DashboardNavigation
@@ -56,6 +60,14 @@ class DashboardActivity : ComponentActivity() {
         setContent {
             IChef_appTheme {
                 val scaffoldState = rememberScaffoldState()
+
+                val promotionalLaunch = PopularOrder(
+                    productId = 1,
+                    productName = "Xis Coração",
+                    productImage = painterResource(id = R.drawable.xis_coracao),
+                    productPrice = "19.90",
+                    emptyList()
+                )
 
                 Scaffold(
                     modifier = Modifier
@@ -105,6 +117,10 @@ class DashboardActivity : ComponentActivity() {
                                         .fillMaxWidth()
                                         .height(160.dp)
                                         .padding(horizontal = 12.dp, vertical = 6.dp)
+                                        .clickable {
+                                            passLaunchToOrder(promotionalLaunch)
+                                        },
+                                    promotionalLaunch
                                 )
 
                                 Text(
@@ -136,16 +152,7 @@ class DashboardActivity : ComponentActivity() {
                                 )
 
                                 PopularOrdersComponent(onItemClick = { popularLaunch ->
-
-                                    val intent = Intent(
-                                        this@DashboardActivity,
-                                        LaunchScreenActivity::class.java
-                                    ).apply {
-                                        putExtra("popularLaunchId", popularLaunch.productId)
-                                        putExtra("popularLaunchName", popularLaunch.productName)
-                                        putExtra("popularLaunchPrice", popularLaunch.productPrice)
-                                    }
-                                    startActivity(intent)
+                                    passLaunchToOrder(popularLaunch)
                                 })
 
                                 Text(
@@ -161,5 +168,17 @@ class DashboardActivity : ComponentActivity() {
                 )
             }
         }
+    }
+
+    private fun passLaunchToOrder(popularLaunch: PopularOrder) {
+        val intent = Intent(
+            this@DashboardActivity,
+            LaunchScreenActivity::class.java
+        ).apply {
+            putExtra("popularLaunchId", popularLaunch.productId)
+            putExtra("popularLaunchName", popularLaunch.productName)
+            putExtra("popularLaunchPrice", popularLaunch.productPrice)
+        }
+        startActivity(intent)
     }
 }
