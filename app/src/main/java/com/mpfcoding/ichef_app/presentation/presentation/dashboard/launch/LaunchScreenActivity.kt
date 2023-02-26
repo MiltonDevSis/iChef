@@ -1,12 +1,14 @@
 package com.mpfcoding.ichef_app.presentation.presentation.dashboard.launch
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +18,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -23,6 +27,10 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,10 +45,13 @@ import com.mpfcoding.ichef_app.core.utils.TOOLBAR_COLOR
 import com.mpfcoding.ichef_app.core.utils.TOOLBAR_CONTENT_COLOR
 import com.mpfcoding.ichef_app.core.utils.fromHex
 import com.mpfcoding.ichef_app.framework.cache.SharedPrefs
+import com.mpfcoding.ichef_app.presentation.presentation.dashboard.DashboardActivity
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import javax.inject.Inject
 
+@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class LaunchScreenActivity : ComponentActivity() {
 
@@ -52,13 +63,16 @@ class LaunchScreenActivity : ComponentActivity() {
     @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        val productInt: Int? = intent.extras?.getInt("popularLaunchId")
+        val productId: Int? = intent.extras?.getInt("popularLaunchId")
         val productName: String? = intent.extras?.getString("popularLaunchName")
         val productPrice: Double? = intent.extras?.getDouble("popularLaunchPrice")
 
         super.onCreate(savedInstanceState)
         setContent {
             IChef_appTheme {
+
+                var totalOrder by remember { mutableStateOf(0) }
+
                 TopAppBar(
                     title = { Text(text = "ESCOLHA SEU LANCHE") },
                     backgroundColor = Color.fromHex(TOOLBAR_COLOR),
@@ -117,7 +131,7 @@ class LaunchScreenActivity : ComponentActivity() {
                         horizontalArrangement = Arrangement.Center
                     ) {
                         IconButton(onClick = {
-
+                            totalOrder += 1
                         }) {
                             Icon(
                                 imageVector = Icons.Filled.Add,
@@ -130,14 +144,16 @@ class LaunchScreenActivity : ComponentActivity() {
                         }
                         Spacer(modifier = Modifier.size(12.dp))
                         Text(
-                            text = "2",
+                            text = "$totalOrder",
                             style = TextStyle(
                                 fontSize = 26.sp
                             )
                         )
                         Spacer(modifier = Modifier.size(12.dp))
                         IconButton(onClick = {
-
+                            if (totalOrder > 0) {
+                                totalOrder -= 1
+                            }
                         }) {
                             Icon(
                                 painter = painterResource(R.drawable.ic_remove),
@@ -156,6 +172,48 @@ class LaunchScreenActivity : ComponentActivity() {
                             fontSize = 18.sp
                         )
                     )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.BottomCenter
+                    ) {
+                        Button(
+                            onClick = {
+                                if (totalOrder > 0) {
+                                    startActivity(
+                                        Intent(
+                                            this@LaunchScreenActivity,
+                                            DashboardActivity::class.java
+                                        )
+                                    )
+                                    finish()
+                                } else {
+                                    Toasty.warning(
+                                        this@LaunchScreenActivity,
+                                        "Adicione ao menos um lanche",
+                                        Toasty.LENGTH_LONG
+                                    ).show()
+                                }
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp)
+                                .padding(horizontal = 50.dp)
+                                .padding(top = 10.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color.Green,
+                                contentColor = Color.White
+                            ),
+                            content = {
+                                Text(
+                                    text = "Adicionar no carrinho",
+                                    style = TextStyle(
+                                        fontSize = 18.sp
+                                    )
+                                )
+                            }
+                        )
+                    }
                 }
             }
         }
