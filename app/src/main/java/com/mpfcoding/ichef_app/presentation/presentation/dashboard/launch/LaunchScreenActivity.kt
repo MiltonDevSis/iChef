@@ -65,7 +65,7 @@ class LaunchScreenActivity : ComponentActivity() {
 
         val productId: Int? = intent.extras?.getInt("popularLaunchId")
         val productName: String? = intent.extras?.getString("popularLaunchName")
-        val productPrice: Double? = intent.extras?.getDouble("popularLaunchPrice")
+        val productPrice: String? = intent.extras?.getString("popularLaunchPrice")
 
         super.onCreate(savedInstanceState)
         setContent {

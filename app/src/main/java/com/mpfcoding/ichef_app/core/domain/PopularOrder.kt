@@ -6,5 +6,6 @@ data class PopularOrder(
     val productId: Int,
     val productName: String,
     val productImage: Painter,
-    val productPrice: Double
+    val productPrice: String,
+    val listIngredients: List<String>
 )

@@ -22,10 +22,12 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mpfcoding.ichef_app.R
+import com.mpfcoding.ichef_app.core.domain.PopularOrder
 
 @Composable
 fun PromoDayComponent(
-    modifier: Modifier
+    modifier: Modifier,
+    popularOrder: PopularOrder
 ) {
     Card(
         modifier = modifier,
@@ -37,9 +39,7 @@ fun PromoDayComponent(
 
             Image(
                 contentScale = ContentScale.FillWidth,
-                painter = painterResource(
-                    R.drawable.xis_coracao
-                ),
+                painter = popularOrder.productImage,
                 contentDescription = null,
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
@@ -61,7 +61,7 @@ fun PromoDayComponent(
                 Spacer(modifier = Modifier.size(14.dp))
                 Text(
                     fontSize = 18.sp,
-                    text = "Xis coração",
+                    text = popularOrder.productName,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 Spacer(modifier = Modifier.size(8.dp))
@@ -77,7 +77,7 @@ fun PromoDayComponent(
                 Spacer(modifier = Modifier.size(8.dp))
                 Text(
                     fontSize = 18.sp,
-                    text = "Por apenas R$19.90",
+                    text = "Por apenas R$ ${popularOrder.productPrice}",
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     style = TextStyle(
                         color = Color.Green

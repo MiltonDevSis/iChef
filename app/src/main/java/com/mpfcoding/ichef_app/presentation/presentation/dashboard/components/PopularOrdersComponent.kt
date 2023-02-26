@@ -31,22 +31,25 @@ fun PopularOrdersComponent(
 
     val launchPopular = listOf(
         PopularOrder(
-            productId = 1,
+            productId = 2,
             productName = "Pizza Pepperoni",
             productImage = painterResource(id = R.drawable.xis_coracao),
-            productPrice = 19.90
-        ),
-        PopularOrder(
-            productId = 2,
-            productName = "Chesse Burger",
-            productImage = painterResource(id = R.drawable.xis_coracao),
-            productPrice = 24.90
+            productPrice = "19.90",
+            emptyList()
         ),
         PopularOrder(
             productId = 3,
+            productName = "Chesse Burger",
+            productImage = painterResource(id = R.drawable.xis_coracao),
+            productPrice = "24.90",
+            emptyList()
+        ),
+        PopularOrder(
+            productId = 4,
             productName = "Vegetable Pizza",
             productImage = painterResource(id = R.drawable.xis_coracao),
-            productPrice = 44.90
+            productPrice = "44.90",
+            emptyList()
         )
     )
 
