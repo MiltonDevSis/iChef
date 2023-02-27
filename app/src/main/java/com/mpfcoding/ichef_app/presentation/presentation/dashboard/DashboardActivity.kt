@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
 import com.mpfcoding.ichef_app.R
 import com.mpfcoding.ichef_app.core.domain.PopularOrder
 import com.mpfcoding.ichef_app.core.utils.IchefConstants
@@ -35,18 +37,20 @@ import com.mpfcoding.ichef_app.presentation.presentation.dashboard.launch.Launch
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.settings.SettingsActivity
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @AndroidEntryPoint
 class DashboardActivity : ComponentActivity() {
 
-    //private val viewModel: DashboardViewModel by viewModels()
+    private val viewModel: DashboardViewModel by viewModels()
 
     @Inject
     lateinit var sharedPrefs: SharedPrefs
 
     private lateinit var nameUserLogged: String
+    private var sumProducts: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +59,10 @@ class DashboardActivity : ComponentActivity() {
             sharedPrefs.getString(key = IchefConstants.UserLogged.USER_LOGGED)
         } else {
             "Sem Login"
+        }
+
+        lifecycleScope.launch {
+            sumProducts = viewModel.sumProducts()
         }
 
         setContent {
@@ -104,7 +112,9 @@ class DashboardActivity : ComponentActivity() {
                         )
                     },
                     floatingActionButton = {
-                        MyFloatingActionButton()
+                        MyFloatingActionButton(
+                            numItens = sumProducts ?: 0
+                        )
                     },
                     isFloatingActionButtonDocked = true,
                     floatingActionButtonPosition = FabPosition.Center,

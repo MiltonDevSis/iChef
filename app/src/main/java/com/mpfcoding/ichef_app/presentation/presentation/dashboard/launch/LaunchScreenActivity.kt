@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -40,7 +41,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
 import com.mpfcoding.ichef_app.R
+import com.mpfcoding.ichef_app.core.domain.Launch
 import com.mpfcoding.ichef_app.core.utils.TOOLBAR_COLOR
 import com.mpfcoding.ichef_app.core.utils.TOOLBAR_CONTENT_COLOR
 import com.mpfcoding.ichef_app.core.utils.fromHex
@@ -49,6 +52,7 @@ import com.mpfcoding.ichef_app.presentation.presentation.dashboard.DashboardActi
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @SuppressLint("CustomSplashScreen")
@@ -58,14 +62,14 @@ class LaunchScreenActivity : ComponentActivity() {
     @Inject
     lateinit var sharedPrefs: SharedPrefs
 
-    //private val viewModel: MainViewModel by viewModels()
+    private val viewModel: LaunchScreenViewModel by viewModels()
 
     @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        val productId: Int? = intent.extras?.getInt("popularLaunchId")
-        val productName: String? = intent.extras?.getString("popularLaunchName")
-        val productPrice: String? = intent.extras?.getString("popularLaunchPrice")
+        val productId: Int = intent.extras?.getInt("popularLaunchId") ?: 123
+        val productName: String = intent.extras?.getString("popularLaunchName") ?: "nameError"
+        val productPrice: String = intent.extras?.getString("popularLaunchPrice") ?: "priceError"
 
         super.onCreate(savedInstanceState)
         setContent {
@@ -94,7 +98,7 @@ class LaunchScreenActivity : ComponentActivity() {
                         .padding(top = 80.dp, start = 16.dp, end = 16.dp, bottom = 16.dp)
                 ) {
                     Text(
-                        text = "$productName",
+                        text = productName,
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         style = TextStyle(
@@ -180,6 +184,18 @@ class LaunchScreenActivity : ComponentActivity() {
                         Button(
                             onClick = {
                                 if (totalOrder > 0) {
+
+                                    lifecycleScope.launch {
+                                        viewModel.insertLaunch(
+                                            Launch(
+                                                productId = productId,
+                                                productName = productName,
+                                                productPrice = productPrice,
+                                                productQuantity = totalOrder
+                                            )
+                                        )
+                                    }
+
                                     startActivity(
                                         Intent(
                                             this@LaunchScreenActivity,
