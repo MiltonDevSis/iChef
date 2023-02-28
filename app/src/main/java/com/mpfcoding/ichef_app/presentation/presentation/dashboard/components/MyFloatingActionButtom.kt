@@ -19,22 +19,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-const val EMPTY_CAR_PRODUCTS = 0
-
 @Composable
 fun MyFloatingActionButton(
     numItens: Int
 ) {
     FloatingActionButton(onClick = {}, backgroundColor = Color(0xffFFA000)) {
 
+        val alignCarIcon: Int = if (numItens > 0) 6 else 0
+
         Icon(
             imageVector = Icons.Filled.ShoppingCart,
             tint = Color.White,
             contentDescription = null,
-            modifier = Modifier.offset(x = 0.dp, y = 3.dp)
+            modifier = Modifier.offset(x = 0.dp, y = alignCarIcon.dp)
         )
 
-        if (EMPTY_CAR_PRODUCTS > 0) {
+        if (numItens > 0) {
             Text(
                 text = numItens.toString(),
                 color = Color.Black,
@@ -43,7 +43,7 @@ fun MyFloatingActionButton(
                 ),
                 modifier = Modifier
                     .size(18.dp)
-                    .offset(x = 9.dp, y = -(19).dp)
+                    .offset(x = 1.dp, y = -(19).dp)
                     .clip(RoundedCornerShape(50.dp))
                     .background(Color.Green),
                 fontSize = 13.sp,
