@@ -35,6 +35,7 @@ import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.me
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.components.menuapp.MyBottomAppBarComponent
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.launch.LaunchScreenActivity
 import com.mpfcoding.ichef_app.presentation.presentation.dashboard.settings.SettingsActivity
+import com.mpfcoding.ichef_app.presentation.presentation.shoppingcar.ShoppingCarActivity
 import com.mpfcoding.ichef_app.presentation.theme.IChef_appTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -113,13 +114,20 @@ class DashboardActivity : ComponentActivity() {
                     },
                     floatingActionButton = {
                         MyFloatingActionButton(
-                            numItens = sumProducts ?: 0
+                            numItens = sumProducts ?: 0,
+                            openCar = {
+                                startActivity(
+                                    Intent(
+                                        this@DashboardActivity,
+                                        ShoppingCarActivity::class.java
+                                    )
+                                )
+                            }
                         )
                     },
                     isFloatingActionButtonDocked = true,
                     floatingActionButtonPosition = FabPosition.Center,
                     content = {
-
                         LazyColumn {
                             items(1) {
                                 PromoDayComponent(

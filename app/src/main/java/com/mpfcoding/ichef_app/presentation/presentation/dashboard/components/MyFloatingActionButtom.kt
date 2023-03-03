@@ -21,9 +21,10 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun MyFloatingActionButton(
-    numItens: Int
+    numItens: Int,
+    openCar: () -> Unit
 ) {
-    FloatingActionButton(onClick = {}, backgroundColor = Color(0xffFFA000)) {
+    FloatingActionButton(onClick = { openCar() }, backgroundColor = Color(0xffFFA000)) {
 
         val alignCarIcon: Int = if (numItens > 0) 6 else 0
 
