@@ -3,13 +3,16 @@ package com.mpfcoding.ichef_app.presentation.presentation.shoppingcar
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -27,9 +30,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mpfcoding.ichef_app.R
+import com.mpfcoding.ichef_app.core.domain.Launch
 
 @Composable
-fun OrderCardComponent() {
+fun OrderComponent(
+    orders: List<Launch>
+) {
+    Column {
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            items(orders) { order ->
+                OrderCardComponent(order = order)
+            }
+        }
+    }
+}
+
+@Composable
+fun OrderCardComponent(
+    order: Launch
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -56,14 +77,14 @@ fun OrderCardComponent() {
                     .padding(top = 10.dp, bottom = 10.dp),
             ) {
                 Text(
-                    text = "Xis coração",
+                    text = order.productName,
                     style = TextStyle(
                         fontSize = 20.sp
                     ),
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(10.dp)
+                    modifier = Modifier.padding(start = 10.dp)
                 )
-
+                Spacer(modifier = Modifier.size(16.dp))
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -83,11 +104,11 @@ fun OrderCardComponent() {
                         )
                     }
                     Text(
-                        text = "2",
+                        text = order.productQuantity.toString(),
                         style = TextStyle(
                             fontSize = 20.sp
                         ),
-                        modifier = Modifier.padding(top = 7.dp)
+                        modifier = Modifier.padding(bottom = 8.dp)
                     )
                     IconButton(onClick = {
 
@@ -107,26 +128,28 @@ fun OrderCardComponent() {
             Column(
                 modifier = Modifier
                     .weight(2F)
-                    .padding(top = 10.dp, bottom = 10.dp),
-                verticalArrangement = Arrangement.SpaceBetween,
+                    .padding(top = 10.dp, bottom = 10.dp, end = 8.dp),
+                horizontalAlignment = Alignment.End
             ) {
                 Text(
-                    text = "R$ 15.90",
+                    text = order.productPrice,
                     style = TextStyle(
-                        fontSize = 20.sp
-                    ),
-                    modifier = Modifier.padding(10.dp)
+                        fontSize = 18.sp
+                    )
                 )
-
+                Spacer(modifier = Modifier.size(30.dp))
                 Text(
-                    text = "R$ 54.40",
+                    text = sumProducts(order).toString(),
                     style = TextStyle(
-                        fontSize = 20.sp,
+                        fontSize = 17.sp,
                         fontWeight = FontWeight.Bold
-                    ),
-                    modifier = Modifier.padding(10.dp)
+                    )
                 )
             }
         }
     }
+}
+
+fun sumProducts(order: Launch): Int{
+    return (order.productQuantity * order.productPrice.toInt())
 }

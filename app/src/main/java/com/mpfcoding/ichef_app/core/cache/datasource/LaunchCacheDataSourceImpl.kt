@@ -15,7 +15,7 @@ class LaunchCacheDataSourceImpl constructor(
     }
 
     override suspend fun getAll(): List<Launch> {
-        return cacheMapper.mapFromEntityList(daoService.getAll())
+       return cacheMapper.mapFromEntityList(daoService.getAll())
     }
 
     override suspend fun sumQuantityLaunchs(): Int {
