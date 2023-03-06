@@ -69,7 +69,7 @@ class LaunchScreenActivity : ComponentActivity() {
 
         val productId: Int = intent.extras?.getInt("popularLaunchId") ?: 123
         val productName: String = intent.extras?.getString("popularLaunchName") ?: "nameError"
-        val productPrice: String = intent.extras?.getString("popularLaunchPrice") ?: "priceError"
+        val productPrice: Double = intent.extras?.getDouble("popularLaunchPrice") ?: 0.0
 
         super.onCreate(savedInstanceState)
         setContent {

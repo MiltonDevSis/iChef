@@ -8,5 +8,7 @@ interface LaunchDaoService {
 
     suspend fun getAll(): List<LaunchEntity>
 
+    suspend fun deleteAll()
+
     suspend fun sumQuantityLaunchs(): Int
 }

@@ -15,6 +15,10 @@ class LaunchDaoServiceImpl constructor(
         return launchDao.getAll()
     }
 
+    override suspend fun deleteAll() {
+        launchDao.deleteAll()
+    }
+
     override suspend fun sumQuantityLaunchs(): Int {
         return launchDao.sumQuantityLaunchs()
     }

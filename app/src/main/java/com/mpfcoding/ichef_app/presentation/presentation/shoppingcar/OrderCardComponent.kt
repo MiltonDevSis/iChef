@@ -38,9 +38,10 @@ fun OrderComponent(
 ) {
     Column {
         LazyColumn(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.padding(horizontal = 10.dp)
         ) {
             items(orders) { order ->
+                Spacer(modifier = Modifier.size(8.dp))
                 OrderCardComponent(order = order)
             }
         }
@@ -53,17 +54,15 @@ fun OrderCardComponent(
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
             .background(Color.White)
+            .padding(2.dp)
             .clickable(
                 onClick = {}
             ),
         elevation = 4.dp,
         shape = RoundedCornerShape(12.dp)
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
+        Row {
             Image(
                 painter = painterResource(id = R.drawable.xis_coracao),
                 contentDescription = null,
@@ -79,7 +78,7 @@ fun OrderCardComponent(
                 Text(
                     text = order.productName,
                     style = TextStyle(
-                        fontSize = 20.sp
+                        fontSize = 17.sp
                     ),
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(start = 10.dp)
@@ -132,16 +131,16 @@ fun OrderCardComponent(
                 horizontalAlignment = Alignment.End
             ) {
                 Text(
-                    text = order.productPrice,
+                    text = "R$ ${order.productPrice}",
                     style = TextStyle(
-                        fontSize = 18.sp
+                        fontSize = 16.sp
                     )
                 )
                 Spacer(modifier = Modifier.size(30.dp))
                 Text(
-                    text = sumProducts(order).toString(),
+                    text = "R$ ${sumProducts(order)}",
                     style = TextStyle(
-                        fontSize = 17.sp,
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Bold
                     )
                 )
@@ -150,6 +149,6 @@ fun OrderCardComponent(
     }
 }
 
-fun sumProducts(order: Launch): Int{
+fun sumProducts(order: Launch): Int {
     return (order.productQuantity * order.productPrice.toInt())
 }

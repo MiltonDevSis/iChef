@@ -74,7 +74,7 @@ class DashboardActivity : ComponentActivity() {
                     productId = 1,
                     productName = "Xis Coração",
                     productImage = painterResource(id = R.drawable.xis_coracao),
-                    productPrice = "19.90",
+                    productPrice = 19.90,
                     emptyList()
                 )
 

@@ -15,6 +15,9 @@ interface LaunchDao {
     @Query("SELECT * FROM launchs")
     suspend fun getAll(): List<LaunchEntity>
 
+    @Query("DELETE FROM launchs")
+    suspend fun deleteAll()
+
     @Query("SELECT SUM(product_quantity) FROM launchs")
     suspend fun sumQuantityLaunchs(): Int
 }

@@ -18,6 +18,10 @@ class LaunchCacheDataSourceImpl constructor(
        return cacheMapper.mapFromEntityList(daoService.getAll())
     }
 
+    override suspend fun deleteAll() {
+        daoService.deleteAll()
+    }
+
     override suspend fun sumQuantityLaunchs(): Int {
         return daoService.sumQuantityLaunchs()
     }

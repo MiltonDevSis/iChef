@@ -5,7 +5,7 @@ import com.mpfcoding.ichef_app.core.cache.entity.LaunchEntity
 data class Launch(
     val productId: Int,
     val productName: String,
-    val productPrice: String,
+    val productPrice: Double,
     val productQuantity: Int,
 )
 

@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.lifecycleScope
 import com.mpfcoding.ichef_app.core.domain.Launch
@@ -27,7 +28,7 @@ class ShoppingCarActivity : ComponentActivity() {
 
     private val viewModel: ShoppingCarViewModel by viewModels()
 
-    private var listOrders: List<Launch>? = null
+    private var listOrders: List<Launch> = emptyList()
 
     @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +36,9 @@ class ShoppingCarActivity : ComponentActivity() {
 
         setContent {
             IChef_appTheme {
+
+                var isLoading by remember { mutableStateOf(true) }
+
                 Column {
                     TopAppBar(
                         title = { Text(text = "MEU CARRINHO") },
@@ -52,9 +56,18 @@ class ShoppingCarActivity : ComponentActivity() {
                         }
                     )
 
-                    lifecycleScope.launch { listOrders = viewModel.getAllOrders() }
+                    lifecycleScope.launch {
+                        viewModel.loadAllOrders()
+                    }
 
-                    listOrders?.let { OrderComponent(orders = it) }
+                    viewModel.orders.observe(this@ShoppingCarActivity) { listLunchs ->
+                        listOrders = listLunchs
+                        isLoading = false
+                    }
+
+                   if (!isLoading) {
+                       OrderComponent(orders = listOrders)
+                   }
                 }
             }
         }

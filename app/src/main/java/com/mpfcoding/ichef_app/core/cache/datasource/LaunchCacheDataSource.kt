@@ -8,5 +8,7 @@ interface LaunchCacheDataSource {
 
     suspend fun getAll(): List<Launch>
 
+    suspend fun deleteAll()
+
     suspend fun sumQuantityLaunchs(): Int
 }
