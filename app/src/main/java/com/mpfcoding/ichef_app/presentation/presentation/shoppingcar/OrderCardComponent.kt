@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,7 +21,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -52,6 +53,13 @@ fun OrderComponent(
 fun OrderCardComponent(
     order: Launch
 ) {
+
+    var totalItem by remember { mutableStateOf(0) }
+    var priceItem by remember { mutableStateOf(0.0) }
+
+    totalItem = order.productQuantity
+    priceItem = order.productPrice
+
     Card(
         modifier = Modifier
             .background(Color.White)
@@ -68,11 +76,12 @@ fun OrderCardComponent(
                 contentDescription = null,
                 modifier = Modifier
                     .padding(top = 10.dp, bottom = 10.dp, start = 10.dp)
-                    .weight(2F)
+                    .weight(2.6F)
+                    .align(Alignment.CenterVertically)
             )
             Column(
                 modifier = Modifier
-                    .weight(2F)
+                    .weight(4F)
                     .padding(top = 10.dp, bottom = 10.dp),
             ) {
                 Text(
@@ -81,7 +90,9 @@ fun OrderCardComponent(
                         fontSize = 17.sp
                     ),
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 10.dp)
+                    modifier = Modifier
+                        .padding(start = 10.dp)
+                        .fillMaxSize()
                 )
                 Spacer(modifier = Modifier.size(16.dp))
                 Row(
@@ -91,33 +102,35 @@ fun OrderCardComponent(
                     verticalAlignment = Alignment.Bottom
                 ) {
                     IconButton(onClick = {
-
+                        totalItem += 1
                     }) {
                         Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = null,
                             modifier = Modifier
-                                .width(20.dp)
-                                .height(20.dp)
+                                .width(24.dp)
+                                .height(24.dp)
                                 .background(Color.Green)
                         )
                     }
                     Text(
-                        text = order.productQuantity.toString(),
+                        text = totalItem.toString(),
                         style = TextStyle(
                             fontSize = 20.sp
                         ),
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
                     IconButton(onClick = {
-
+                        if (totalItem > 0) {
+                            totalItem -= 1
+                        }
                     }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_remove),
                             contentDescription = null,
                             modifier = Modifier
-                                .width(20.dp)
-                                .height(20.dp)
+                                .width(24.dp)
+                                .height(24.dp)
                                 .background(Color.Green)
                         )
                     }
@@ -126,19 +139,20 @@ fun OrderCardComponent(
 
             Column(
                 modifier = Modifier
-                    .weight(2F)
-                    .padding(top = 10.dp, bottom = 10.dp, end = 8.dp),
+                    .weight(1.4F)
+                    .padding(top = 10.dp, bottom = 10.dp, end = 8.dp)
+                    .align(Alignment.CenterVertically),
                 horizontalAlignment = Alignment.End
             ) {
                 Text(
-                    text = "R$ ${order.productPrice}",
+                    text = "R$ $priceItem",
                     style = TextStyle(
-                        fontSize = 16.sp
+                        fontSize = 15.sp
                     )
                 )
-                Spacer(modifier = Modifier.size(30.dp))
+                Spacer(modifier = Modifier.size(35.dp))
                 Text(
-                    text = "R$ ${sumProducts(order)}",
+                    text = "R$ ${sumProducts(totalItem, priceItem)}",
                     style = TextStyle(
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold
@@ -149,6 +163,6 @@ fun OrderCardComponent(
     }
 }
 
-fun sumProducts(order: Launch): Int {
-    return (order.productQuantity * order.productPrice.toInt())
+fun sumProducts(quantity: Int, priceItem: Double): Int {
+    return (quantity * priceItem.toInt())
 }
