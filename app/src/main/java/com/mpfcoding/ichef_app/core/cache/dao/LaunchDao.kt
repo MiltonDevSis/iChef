@@ -12,6 +12,12 @@ interface LaunchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(obj: LaunchEntity)
 
+    @Query("UPDATE launchs SET product_quantity = :quantity, total_price_order = :quantity * :price WHERE productId = :id")
+    suspend fun updateQuantityOrder(quantity: Int, id: Int, price: Double)
+
+    @Query("SELECT total_price_order FROM launchs WHERE productId = :itemId")
+    fun getTotal(itemId: Int): Double
+
     @Query("SELECT * FROM launchs")
     suspend fun getAll(): List<LaunchEntity>
 

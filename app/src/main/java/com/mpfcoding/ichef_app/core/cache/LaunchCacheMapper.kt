@@ -12,8 +12,8 @@ class LaunchCacheMapper @Inject constructor() : EntityMapper<LaunchEntity, Launc
             productId = entity.productId!!,
             productName = entity.productName,
             productPrice = entity.productPrice,
-            productQuantity = entity.productQuantity
-
+            productQuantity = entity.productQuantity,
+            totalPriceLaunch = entity.totalPriceOrder
         )
     }
 
@@ -22,7 +22,8 @@ class LaunchCacheMapper @Inject constructor() : EntityMapper<LaunchEntity, Launc
             productId = domainModel!!.productId,
             productName = domainModel.productName,
             productPrice = domainModel.productPrice,
-            productQuantity = domainModel.productQuantity
+            productQuantity = domainModel.productQuantity,
+            totalPriceOrder = domainModel.totalPriceLaunch
         )
     }
 

@@ -35,7 +35,8 @@ import com.mpfcoding.ichef_app.core.domain.Launch
 
 @Composable
 fun OrderComponent(
-    orders: List<Launch>
+    orders: List<Launch>,
+    viewModel: ShoppingCarViewModel
 ) {
     Column {
         LazyColumn(
@@ -43,7 +44,7 @@ fun OrderComponent(
         ) {
             items(orders) { order ->
                 Spacer(modifier = Modifier.size(8.dp))
-                OrderCardComponent(order = order)
+                OrderCardComponent(order = order, viewModel)
             }
         }
     }
@@ -51,7 +52,8 @@ fun OrderComponent(
 
 @Composable
 fun OrderCardComponent(
-    order: Launch
+    order: Launch,
+    viewModel: ShoppingCarViewModel
 ) {
 
     var totalItem by remember { mutableStateOf(0) }
@@ -103,6 +105,7 @@ fun OrderCardComponent(
                 ) {
                     IconButton(onClick = {
                         totalItem += 1
+                        viewModel.updateQuantity(totalItem, order.productId, order.productPrice)
                     }) {
                         Icon(
                             imageVector = Icons.Filled.Add,
@@ -123,6 +126,7 @@ fun OrderCardComponent(
                     IconButton(onClick = {
                         if (totalItem > 0) {
                             totalItem -= 1
+                            viewModel.updateQuantity(totalItem, order.productId, order.productPrice)
                         }
                     }) {
                         Icon(

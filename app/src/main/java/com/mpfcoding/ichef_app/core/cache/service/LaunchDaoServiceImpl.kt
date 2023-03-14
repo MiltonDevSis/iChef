@@ -11,6 +11,10 @@ class LaunchDaoServiceImpl constructor(
         launchDao.insert(obj)
     }
 
+    override suspend fun updateQuantity(quantity: Int, id: Int, price: Double) {
+        launchDao.updateQuantityOrder(quantity, id, price)
+    }
+
     override suspend fun getAll(): List<LaunchEntity> {
         return launchDao.getAll()
     }

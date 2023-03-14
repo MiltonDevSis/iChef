@@ -6,6 +6,8 @@ interface LaunchDaoService {
 
     suspend fun insert(obj: LaunchEntity)
 
+    suspend fun updateQuantity(quantity: Int, id: Int, price: Double)
+
     suspend fun getAll(): List<LaunchEntity>
 
     suspend fun deleteAll()

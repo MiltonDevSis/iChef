@@ -6,6 +6,8 @@ interface LaunchCacheDataSource {
 
     suspend fun insert(obj: Launch)
 
+    suspend fun updateQuantity(quantity: Int, id: Int, price: Double)
+
     suspend fun getAll(): List<Launch>
 
     suspend fun deleteAll()

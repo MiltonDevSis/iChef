@@ -7,6 +7,7 @@ data class Launch(
     val productName: String,
     val productPrice: Double,
     val productQuantity: Int,
+    val totalPriceLaunch: Double = 0.0
 )
 
 fun Launch.toEntity(): LaunchEntity {
@@ -14,6 +15,7 @@ fun Launch.toEntity(): LaunchEntity {
         productId = productId,
         productName = productName,
         productPrice = productPrice,
-        productQuantity = productQuantity
+        productQuantity = productQuantity,
+        totalPriceOrder = totalPriceLaunch
     )
 }

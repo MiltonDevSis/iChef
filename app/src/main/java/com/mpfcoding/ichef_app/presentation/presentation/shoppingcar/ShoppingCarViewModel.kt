@@ -18,10 +18,19 @@ class ShoppingCarViewModel @Inject constructor(
     private val _orders = MutableLiveData<List<Launch>>()
     val orders: LiveData<List<Launch>> = _orders
 
+    private val _quantityOrders = MutableLiveData<Int>()
+    val quantityOrder: LiveData<Int> = _quantityOrders
+
     fun loadAllOrders() {
         viewModelScope.launch {
             val orders = launchCacheDataSource.getAll()
             _orders.postValue(orders)
+        }
+    }
+
+    fun updateQuantity(quantity: Int, id: Int, price: Double){
+        viewModelScope.launch {
+            launchCacheDataSource.updateQuantity(quantity, id, price)
         }
     }
 }

@@ -14,6 +14,10 @@ class LaunchCacheDataSourceImpl constructor(
         daoService.insert(obj.toEntity())
     }
 
+    override suspend fun updateQuantity(quantity: Int, id: Int, price: Double) {
+        daoService.updateQuantity(quantity, id, price)
+    }
+
     override suspend fun getAll(): List<Launch> {
        return cacheMapper.mapFromEntityList(daoService.getAll())
     }

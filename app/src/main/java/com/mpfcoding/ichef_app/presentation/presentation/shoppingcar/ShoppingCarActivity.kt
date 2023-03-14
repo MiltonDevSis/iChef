@@ -66,8 +66,12 @@ class ShoppingCarActivity : ComponentActivity() {
                     }
 
                    if (!isLoading) {
-                       OrderComponent(orders = listOrders)
+                       OrderComponent(
+                           orders = listOrders,
+                           viewModel = viewModel
+                       )
                    }
+                    Text(text = "Total dos pedidos: ")
                 }
             }
         }

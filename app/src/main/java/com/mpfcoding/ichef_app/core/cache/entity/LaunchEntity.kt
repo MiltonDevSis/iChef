@@ -13,5 +13,7 @@ data class LaunchEntity(
     @ColumnInfo(name = "product_price")
     val productPrice: Double,
     @ColumnInfo(name = "product_quantity")
-    val productQuantity: Int
+    val productQuantity: Int,
+    @ColumnInfo(name = "total_price_order")
+    val totalPriceOrder: Double
 )
